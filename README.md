@@ -1,11 +1,17 @@
-ThinkPHP 6.0
+ThinkYXC 1.0
 ===============
 
 > 运行环境要求PHP7.1+。
 
-[官方应用服务市场](https://www.thinkphp.cn/service) | [`ThinkPHP`开发者扶持计划](https://sites.thinkphp.cn/1782366)
+基于最新的ThinkPHPV6.0版本倾力打造！追求极致的同时为PHP正名！谁说PHP不是世界上最好的语言？！
 
-ThinkPHPV6.0版本由[亿速云](https://www.yisu.com/)独家赞助发布。
+性能远超市面同类产品，百万数据压测，借鉴xiuno系统，后期会持续升级优化，提高用户体验！支持插件机制，快速的拓展系统。
+
+基于Thinkphp5开发的市面上不少，但是基于Thinkphp6的屈指可数，特此从心开发了一套系统。 精简的同时追求极致的性能，后期会加入更多高性能的功能和优化升级哦！
+
+欢迎加入技术群： 
+
+点击链接加入群聊【ThinkYXC-CMS系统①群】：https://jq.qq.com/?_wv=1027&k=aujuhkuJ
 
 ## 主要新特性
 
@@ -21,36 +27,23 @@ ThinkPHPV6.0版本由[亿速云](https://www.yisu.com/)独家赞助发布。
 * 对Swoole以及协程支持改进
 * 对IDE更加友好
 * 统一和精简大量用法
+* 支持插件化
+* 几乎全部开通了缓存功能，文章内容能够实时更新，支持高并发
+* 加入了同一用户访问频率限制，提升性能
+* 后续持续优化升级……
 
 ## 安装
 
 ~~~
-composer create-project topthink/think tp 6.0.*
+部署到服务器，导入sqldata文件夹下的数据库文件后，修改config配置文件的数据库账号密码信息
 ~~~
 
-如果需要更新框架使用
-~~~
-composer update topthink/framework
-~~~
 
 ## 文档
-
+基于
 [完全开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)
+很纯的基于thinkphp6，没有多余的库，极大降低耦合度的同时发掘更深层次的性能！
+市面同类型产品几乎都单独开发了一套自己的库，不仅提高的耦合度，更降低了性能，试想一下：我只要加载一个首页，但是却需要加载thinkphp的库还要加载开发者自己开发的库文件，功能多的时候还要加载其他功能的库文件，想想有多臃肿！性能怎么可能快！美其名曰是方便快速开发，实际上却是多了太多的不规范的标准，不仅要学习适应thinkphp的标准，还要学所用系统的代码标准，学习成本提高的同时也浪费了大量的精力。
+犹如手机厂商绞尽脑汁将手机做薄，而你却给他换了个一厘米多厚的壳，告诉消费者说这是你的新款产品……
 
-## 参与开发
 
-请参阅 [ThinkPHP 核心框架包](https://github.com/top-think/framework)。
-
-## 版权信息
-
-ThinkPHP遵循Apache2开源协议发布，并提供免费使用。
-
-本项目包含的第三方源码和二进制文件之版权信息另行标注。
-
-版权所有Copyright © 2006-2020 by ThinkPHP (http://thinkphp.cn)
-
-All rights reserved。
-
-ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
-
-更多细节参阅 [LICENSE.txt](LICENSE.txt)
