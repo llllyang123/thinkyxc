@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-邮箱设置</title>
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    
+</head>
+
+<body>
+    
+    <div class="layui-card">
+  <!--<div class="layui-card-header">卡片面板</div>-->
+  <div class="layui-card-body">
+     <div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">邮箱设置</li>
+    <li>数字验证码验证模板</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+        <!--内容1-->
+     <form class="layui-form forms" action="" method="post" lay-filter="nei1s" >
+        <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>发件人</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="mail_from" value="{$site_email.mail_from}" placeholder="请输入需要显示的发件人用户名" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+         <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>邮箱地址</label>
+    <div class="layui-input-block">
+      <input type="email" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="mail_email" value="{$site_email.mail_email}" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>SMTP服务器</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="mail_smtp" value="{$site_email.mail_smtp}" placeholder="请输入SMTP邮箱如smtp.163.com" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>连接方式</label>
+    <div class="layui-input-block">
+      <!--<input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="mail_secure" value="{$site_email.mail_secure}" placeholder="请输入" autocomplete="off" class="layui-input">-->
+      <select name="mail_secure" lay-filter="mail_secure">
+        <option value="ssl" {if $site_email.mail_secure == 'ssl'} selected {/if}>ssl</option>
+          <option value="tls" {if $site_email.mail_secure == 'tls'} selected {/if}>tls</option>
+      </select>
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>SMTP服务器端口</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="mail_port" value="{$site_email.mail_port}" placeholder="163邮箱的ssl协议方式端口号是465/994" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>发件箱帐号</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="mail_username" value="{$site_email.mail_username}" placeholder="请输入的账号用户名" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>发件箱密码</label>
+    <div class="layui-input-block">
+      <input type="password" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="mail_password"  value="{$site_email.mail_password}" placeholder="请输入账号的密码" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+   <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+      <button type="reset" onclick="ceshi()" class="layui-btn layui-btn-warm">测试邮件</button>
+    </div>
+  </div>
+  
+     </form>   
+        
+    </div>
+    <div class="layui-tab-item">
+        <!--内容2-->
+      <form class="layui-form forms" action="" method="post" lay-filter="nei2s" >
+          <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>邮件标题</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="mail_title" value="{$site_email_code.mail_title}" placeholder="请输入" autocomplete="off" class="layui-input">
+    </div>
+  </div>   
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>邮件模板</label>
+    <div class="layui-input-block" >
+        <textarea name="mail_template" id="mytextarea" required lay-verify="required" placeholder="请输入" class="layui-textarea">{$site_email_code.mail_template}</textarea>
+      <!--<input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input">-->
+    </div>
+  </div> 
+          
+     <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei2">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+     </form>   
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+   
+    
+    
+<script type="text/javascript" src="../layui/layui.all.js"></script>
+<script type="text/javascript" src="../js/tinymce.min.js"></script>
+<script>
+// 编辑器
+tinymce.init({
+    selector: '#mytextarea',
+    language:'zh_CN',//注意大小写
+    plugins: ['code','emoticons','indent2em','image','link','codesample','anchor','autolink','charmap','autosave','hr','fullscreen','lists','paste','media','bdmap','print','table','wordcount'],
+    toolbar: "code | emoticons | indent2em | image | media | link | codesample | anchor | paste | restoredraft | charmap | numlist bullist | hr | bdmap | print  | wordcount |fullscreen",
+    height: 400,
+    file_picker_callback: function (callback, value, meta) {
+        //文件分类
+        var filetype='.pdf, .txt, .zip, .rar, .7z, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .mp3, .mp4';
+        //后端接收上传文件的地址
+        var upurl='addcms/files';
+        //为不同插件指定文件类型及后端地址
+        switch(meta.filetype){
+            case 'image':
+                filetype='.jpg, .jpeg, .png, .gif';
+                upurl='addcms/files';
+                break;
+            case 'media':
+                filetype='.mp3, .mp4';
+                upurl='addcms/files';
+                break;
+            case 'file':
+            default:
+        }
+        //模拟出一个input用于添加本地文件
+        var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', filetype);
+        input.click();
+        input.onchange = function() {
+            var file = this.files[0];
+
+            var xhr, formData;
+            console.log(file.name);
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', upurl);
+            xhr.onload = function() {
+                var json;
+                if (xhr.status != 200) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+                json = JSON.parse(xhr.responseText);
+                if (!json || typeof json.location != 'string') {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+                callback(json.location);
+            };
+            formData = new FormData();
+            formData.append('file', file, file.name );
+            xhr.send(formData);
+
+            //下方被注释掉的是官方的一个例子
+            //放到下面给大家参考
+            
+            /*var reader = new FileReader();
+            reader.onload = function () {
+                // Note: Now we need to register the blob in TinyMCEs image blob
+                // registry. In the next release this part hopefully won't be
+                // necessary, as we are looking to handle it internally.
+                var id = 'blobid' + (new Date()).getTime();
+                var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                var base64 = reader.result.split(',')[1];
+                var blobInfo = blobCache.create(id, file, base64);
+                blobCache.add(blobInfo);
+
+                // call the callback and populate the Title field with the file name
+                callback(blobInfo.blobUri(), { title: file.name });
+            };
+            reader.readAsDataURL(file);*/
+        };
+    },
+  });
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate,$ = layui.jquery
+  ,upload = layui.upload;
+  var laytpl = layui.laytpl;
+    //监听提交
+  form.on('submit(nei1)', function(data){
+        var dast = form.val("nei1s");
+         $.ajax({
+          url:"{:url('email/smtp')}",
+          data:{'data':dast,'set_name':'site_email'},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+              layer.msg(data.msg);
+              
+              setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },500)
+              
+          },
+          error:function(data){
+            //   $.messager.alert('错误',data.msg);
+               layer.alert(data.field.interest, {
+                  title: '错误'+data.msg
+                })
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+  
+   form.on('submit(nei2)', function(data){
+       tinymce.editors["mytextarea"].save();
+        var dast = form.val("nei2s");
+         $.ajax({
+          url:"{:url('email/smtp')}",
+          data:{'data':dast,'set_name':'site_email_code'},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+              layer.msg(data.msg);
+              
+              setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },500)
+              
+          },
+          error:function(data){
+              //   $.messager.alert('错误',data.msg);
+               layer.alert(data.field.interest, {
+                  title: '错误'+data.msg
+                })
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+  
+  function ceshi(){
+      layer.prompt({
+          formType: 0,
+          value: '',
+          title: '请输入测试邮箱',
+        }, function(value, index, elem){
+        //   alert(value); //得到value
+            fasong(value,'测试邮件');
+          layer.close(index);
+        }); 
+    
+  }
+  
+  function fasong(email,event){
+      layer.msg("请稍后");
+         $.ajax({
+          url:"{:url('/index/index/mailcode')}",
+          data:{'data':email,'event':event},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            // console.log(data)
+            if(data.msg){
+                
+              if(data.code==1){
+                  layer.msg(data.msg);
+                  setTimeout(function(){
+                     
+                //   location.reload(); //删除成功后再刷新
+                },1000)
+              }
+            } 
+            
+            
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+  }
+   
+  </script>
+</body>
+</html>

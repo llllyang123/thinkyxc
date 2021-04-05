@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-友情链接编辑</title>
+    {include file="template/header" /}
+    
+</head>
+
+<body>
+  
+  <div class="layui-card">
+  <!--<div class="layui-card-header">卡片面板</div>-->
+  <div class="layui-card-body">
+    
+    <div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">修改友情链接</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+        <!--内容1-->
+         <form class="layui-form forms" action=""  method="post"  lay-filter="nei2s"> 
+       
+            <div class="layui-form-item">
+        <label class="layui-form-label">排序<span class="bitian"></span></label>
+        <div class="layui-input-block">
+          <input type="number" name="weight" value="{$link.weight}" placeholder="请输入排序，数字越小越在前" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+            <div class="layui-form-item">
+    <label class="layui-form-label">名称<span class="bitian">*</span></label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="name" value="{$link.name}" placeholder="请输入" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">链接地址<span class="bitian">*</span></label>
+    <div class="layui-input-block">
+      <input type="url" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="url" value="{$link.url}" placeholder="请输入" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>缩略图</label>
+    <div class="layui-input-block">
+      <div class="layui-upload">
+  <button type="button" class="layui-btn" id="upimag">上传图片</button>
+  <button type="button" class="layui-btn layui-btn-primary" id="delimag">清除图片</button>
+  <div class="layui-upload-list">
+    <img class="layui-upload-img" id="images" src="{$link.thumbnail}">
+    <p id="demoText"></p>
+  </div>
+</div>
+    </div>
+  </div>
+     <div class="layui-form-item">
+    <label class="layui-form-label widthauto">打开方式</label>
+    <div class="layui-input-block">
+      <select name="target" lay-filter="aihao">
+           <option value="_blank" {if $link.target == '_blank'} selected {/if}>新标签页打开</option>
+          <option value="_self" {if $link.target == '_self'} selected {/if}>本窗口打开</option>
+        <!--<option value="_blank">新标签页打开</option>-->
+        <!--<option value="_self">本窗口打开</option>-->
+      </select>
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei2">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+      </form> 
+        
+        
+    </div>
+  </div>
+</div>
+    
+  </div>
+</div>
+
+ 
+ 
+   {include file="template/footer" /}
+   
+<script>
+
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,$ = layui.jquery
+  ,upload = layui.upload
+  ,laydate = layui.laydate
+  ,table = layui.table;
+  var laytpl = layui.laytpl;
+  var util = layui.util;
+
+form.on('submit(nei2)', function(data){
+        var dast = form.val("nei2s");
+        console.log(dast)
+        $.ajax({
+          url:"{:url('linkedit/updata')}",
+          data:{'data':dast,'thumbnail':image,'linkid':{$link.linkid}},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+              layer.msg(data.msg);
+              if(data.code == 1){
+                  setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },500)
+              }
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+        
+        var image = "{$thumbnail}";
+        
+   //普通图片上传
+  var uploadInst = upload.render({
+    elem: '#upimag'
+    ,url: "{:url('link/image')}" //改成您自己的上传接口
+    ,before: function(obj){
+        //上传前的回调
+    //   //预读本地文件示例，不支持ie8
+    //   obj.preview(function(index, file, result){
+    //     // $('#images').attr('src', result); //图片链接（base64）
+    //     console.log(file)
+    //      console.log(index)
+    //   });
+    }
+    ,done: function(res){
+        //上传后的回调
+        console.log(res)
+        image = res.image;
+        $('#images').attr('src', res.image);
+      //如果上传失败
+      if(res.code == 0){
+        return layer.msg('上传失败');
+      }
+      //上传成功
+    }
+    ,error: function(){
+      //演示失败状态，并实现重传
+      var demoText = $('#demoText');
+      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+      demoText.find('.demo-reload').on('click', function(){
+        uploadInst.upload();
+      });
+    }
+  });
+  
+ //删除缩略图事件
+    $('#delimag').on('click',function(){
+         $('#images').attr('src', '');
+            image = '';
+    } )
+ 
+   </script>
+</body>
+</html>

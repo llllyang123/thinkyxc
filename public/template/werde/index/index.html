@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$site_info.site_name}-网站主页</title>
+    
+    {include file="template/meta" /}
+    
+    </head>
+    
+<body>
+    
+    {include file="template/header" /}
+    
+        <!--轮播图-->
+    <div class="layui-carousel" id="banner">
+  <div carousel-item="">
+      {volist name='banner' id='value'}
+        <div><a  href="{$value.url?$value.url:'javascript:;'}" target="{$value.url?$value.target:''}"><img class="img" src="{$value.img_src}" alt="{$value.img_alt}"></a></div>
+    {/volist}
+  </div>
+</div>
+    
+    <div class="layui-layout-body">
+    <!--main部分-->
+    <div class="layui-container main">
+        
+        {:hook('testhook', ['id'=>1])}
+        {:hook('ceshihook', ['id'=>2])}
+        
+        <p class="dg layui-col-xs12 layui-col-sm12 layui-col-md12">企业快速建站<span>核心产品</span></p>
+  <div class="layui-row">
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+      <div class="main-boder">
+        <div class="imgi"><i class="layui-icon layui-icon-template"></i> </div>
+            <div class="main-content">
+                <p class="label">手机app开发</p>
+                <p> 也许您有了PC网站和手机网站，但您一定不能错过手机APP，它不需媒介与客户近距离接触、最方便企业宣传并成为您的企业名片，快速有效占领移动互联网入口。</p>
+            </div>
+      </div>
+    </div>
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+      <div class="main-boder">
+        <div class="imgi"><i class="layui-icon layui-icon-template-1"></i> </div>
+            <div class="main-content">
+                <p class="label">微信网站建设</p>
+                <p>微信用户已达6亿，并且在持续增长中；可以实现一个更完善的互联网营销体系，PC网站，手机网站，微信网站应有尽有；微信网站的拥有数量并不多，现在进入更容易。</p>
+            </div>
+      </div>
+    </div>
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+      <div class="main-boder">
+        <div class="imgi"><i class="layui-icon layui-icon-fonts-code"></i> </div>
+            <div class="main-content">
+                <p class="label">自适应/H5网站</p>
+                <p>让电脑和手机智能结合，同时抢占5.9亿电脑网民和4.6亿手机网民，融合SEO优化营销网站、手机网站、百度优化排名和二维码为一体，全面提升企业网络营销效果！</p>
+            </div>
+      </div>
+    </div>
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+      <div class="main-boder">
+        <div class="imgi"><i class="layui-icon layui-icon-app"></i> </div>
+            <div class="main-content">
+                <p class="label">手机网站建设</p>
+                <p>移动化快速发展，手机上网已经基本取代PC时代，建立手机网站，是为了弥补流失潜在客户，更快速的获得网络流量，得到更好的曝光量，提高业绩和更多的订单量。</p>
+            </div>
+      </div>
+    </div>
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+      <div class="main-boder">
+        <div class="imgi"><i class="layui-icon layui-icon-slider"></i> </div>
+            <div class="main-content">
+                <p class="label">百度seo优化</p>
+                <p>据中国互联网信息中心(CNNIC)统计数据显示，目前我国至少有4100万个网站，然而您的网站又在哪里？您的网站能排到搜索引擎前几页吗？
+                    SEO优化的差距会直接导致流量的差距，直接影响业绩。
+                </p>
+            </div>
+      </div>
+    </div>
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+      <div class="main-boder">
+        <div class="imgi"><i class="layui-icon layui-icon-website"></i> </div>
+            <div class="main-content">
+                <p class="label">微信二次开发</p>
+                <p> 微信公众平台其实本身功能很强大，但是客户多样化，基础版微信功能不能满足用户群体需求。二次微信开发进一步增加用户群体黏性，进一步增加销售，满足更多客户的个性化定制需求。</p>
+            </div>
+      </div>
+    </div>
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+      <div class="main-boder">
+        <div class="imgi"><i class="layui-icon layui-icon-diamond"></i> </div>
+            <div class="main-content">
+                <p class="label">社会化媒体营销</p>
+                <p>满足顾客需求、赢得顾客满意和顾客忠诚度、获得正向口碑、与顾客建立良好的关系、以及提高企业品牌的形象。 通过口碑营销，有利于增加企业的订单量，降低新顾客的成本、关系成本和维系成本等。</p>
+            </div>
+      </div>
+    </div>
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+      <div class="main-boder">
+        <div class="imgi"><i class="layui-icon layui-icon-component"></i> </div>
+            <div class="main-content">
+                <p class="label">微信营销</p>
+                <p>主要在移动客户端进行的区域定位营销，商家通过微信公众平台，结合转介率微信会员卡管理系统展示商家微官网、微会员、微推送、微支付、微活动，已经形成了一种主流的线上线下微信互动营销方式。</p>
+            </div>
+      </div>
+    </div>
+  </div>
+  </div>
+    
+    <!--新闻缩略图-->
+     <div class="layui-container main">
+        <p class="dg">最新资讯</p>
+  <div class="layui-row">
+    
+    {foreach $newest as $i=>$value}
+        <div class="new-list layui-col-xs12 layui-col-sm6 layui-col-md3">
+            <a href="/post/{$value.tid}.html" target="_blank">
+      <div class="new-boder">
+        <div class="imgs">
+            {empty name="$value.thumbnail"}
+               <img src="/static/logo.png" />
+            {else /}
+                <img src="{$value.thumbnail}" />
+            {/empty}
+        </div>
+            <div class="new-content">
+                <p class="laber-title"><a href="/post/{$value.tid}.html" target="_blank">{$value.subject}</a></p>
+                <hr class="layui-bg-gray">
+                <p class="laber-look">
+                    <a href="/post/{$value.tid}.html" target="_blank">查看详情</a>
+                </p>
+            </div>
+      </div>
+      </a>
+    </div>
+    
+    {/foreach}
+   
+  </div>
+   <!--<p class="dgmuch">-->
+   <!--     <a href="" class="layui-btn layui-btn-normal">查看更多</a>-->
+   <!-- </p>-->
+  <hr class="layui-bg-gray">
+  </div>
+    
+
+    
+    
+    
+ </div>
+    
+    {include file="template/footer"}
+
+</body>
+</html>

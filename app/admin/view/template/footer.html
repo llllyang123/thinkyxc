@@ -1,0 +1,47 @@
+
+
+
+<script type="text/javascript" src="../../layui/layui.all.js"></script>
+
+<script type="text/javascript" >
+    ;!function(){
+  //无需再执行layui.use()方法加载模块，直接使用即可
+  var form = layui.form
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate
+  ,$ = layui.jquery
+  ,upload = layui.upload;
+  var laytpl = layui.laytpl
+  ,layer = layui.layer;
+  
+  form.on('submit(nei1)', function(data){
+        var config = form.val("nei1s");
+        console.log(config)
+         $.ajax({
+          url:"{:url('plugin/admin_updata')}",
+          data:{'data':config,'pluginname':'{$pluginname}'},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+              layer.msg(data.msg);
+              
+          },
+          error:function(data){
+            //   $.messager.alert('错误',data.msg);
+               layer.alert(data.field.interest, {
+                  title: '错误'+data.msg
+                })
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return true;
+  });
+  
+  
+}();
+    
+    
+</script>

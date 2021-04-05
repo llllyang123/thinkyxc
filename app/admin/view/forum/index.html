@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-分类管理</title>
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <style>
+        .layui-btn+.layui-btn{
+            margin-left: 10px !important;
+        }
+        .layui-btn.layuiadmin-btn-list{
+            height: 38px;
+            padding: 0px 18px;
+            font-size: 14px;
+            line-height: 38px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="layui-card">
+  <div class="layui-card-header">
+  
+  </div>
+  <div class="layui-card-body">
+      <div style="padding: 10px;" >
+          <!--<button class="layui-btn layuiadmin-btn-list" data-type="getCheckData" lay-event="delet" id="delet">删除分类</button>-->
+          <button class="layui-btn layuiadmin-btn-list" data-type="add" lay-event="add" id="add">添加顶级分类</button>
+          <!--<button class="layui-btn layuiadmin-btn-list" data-type="updatas" lay-event="updatas" id="updatas">刷新</button>-->
+        </div>
+      <form class="layui-form" action="">
+      <table class="layui-table">
+          
+  <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+      <th>分类ID</th>
+      <th>分类名称</th>
+      <th>简介描述</th>
+      <th>SEO标题</th>
+      <th>SEO描述</th>
+      <th>SEO关键词</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr> 
+  </thead>
+  <tbody>
+    {volist name="data" id="vo"}
+         <!--<td><?php echo str_repeat("-",$vo["level"])?>{$vo['name']}</td>-->
+         
+         <tr id="" class="url">
+        <td align="center">{$vo.fid}</td>
+        <td><?php echo str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;├&nbsp;",$vo["level"])?>{$vo.name}</td>
+        <td>{$vo.brief}</td>
+        <td>{$vo.seo_title}</td>
+        <td>{$vo.seo_description}</td>
+        <td>{$vo.seo_keywords}</td>
+        <td>
+                <input type="checkbox" name="switch" lay-skin="switch" lay-text="显示|隐藏" {if $vo.status == 1} checked {/if}  lay-filter="status"  id="status" value="{$vo.status}" data-href="{:url('forum/status'.'?fid='.$vo.fid.'&status='.$vo.status)}" >
+                <!--{:url('forumadd?fid='.{$vo.fid}.'&status='.{$vo.status})}-->
+        </td>
+        <td>
+            <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="add"  href="javascript:;" data-href="{:url('/admin/forumadd'.'?fid='.$vo.fid.'&fup='.$vo.fup.'&ht='.$vo.fup)}" onclick="opens({$vo.fid})">添加子分类</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit" href="javascript:;" data-href="{:url('/admin/forumadd/edit'.'?fid='.$vo.fid)}" onclick="edit({$vo.fid})">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:;" data-href="{:url('/admin/forumadd/del'.'?fid='.$vo.fid)}" onclick="del({$vo.fid})">删除</a>
+        </td>
+    {/volist}
+
+  </tbody>
+</table>
+
+</form>
+  
+
+
+  </div>
+</div>
+    
+     <script type="text/javascript" src="../layui/layui.all.js"></script>   
+     <!--<script type="text/javascript" src="../static/js/treeTable.js"></script> -->
+<script>
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,$ = layui.jquery
+  ,laydate = layui.laydate
+  ,table = layui.table;
+  var util = layui.util;
+
+form.on('switch(status)', function(data){
+  console.log(data.elem); //得到checkbox原始DOM对象
+//   console.log(data.elem.checked); //开关是否开启，true或者false
+  console.log(data.value); //开关value值，也可以通过data.elem.value得到
+  console.log($(data.elem).attr("data-href"));
+     $.ajax({
+          url:$(data.elem).attr("data-href"),
+          data:{},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data.code);
+                layer.msg(data.msg);
+             if(data.code == 1){
+                 updata();
+             }
+              
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+//   console.log(data.othis); //得到美化后的DOM对象
+}); 
+
+    function opens(data){
+        console.log(data)
+        var url = '/admin/forumadd?fid='+data;
+                    layer.open({
+                  type: 2,
+                  area: ['50%', '80%'],
+                  content: url,
+                  zIndex: layer.zIndex, //重点1
+                  success: function(layero){
+                    layer.setTop(layero); //重点2
+                  },
+                  cancel: function(){
+                     //右上角关闭回调
+                    updata();
+                    //return false 开启该代码可禁止点击该按钮关闭
+                    }
+                });  
+    }
+
+    function del(data){
+        var url = '/admin/forumadd/del?fid='+data;
+        layer.confirm('真的删除么？', function(index){
+      layer.close(index);
+      //向服务端发送删除指令
+       $.ajax({
+          url:url,
+          data:{},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+            if(data.code == 1){
+                 updata();
+             }
+              layer.msg(data.msg);
+            
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+      
+    });
+        
+    }
+    
+    function edit(data){
+        var url = '/admin/forumadd/edit?fid='+data;
+              layer.open({
+      type: 2,
+      area: ['100%', '100%'],
+      content: url,
+      zIndex: layer.zIndex, //重点1
+      success: function(layero){
+        layer.setTop(layero); //重点2
+      },
+      cancel: function(){
+         //右上角关闭回调
+        updata();
+        //return false 开启该代码可禁止点击该按钮关闭
+        }
+    }); 
+        
+    }
+
+        //添加按钮事件
+    $("#add").on('click',function(){
+        // layer.alert('dds');
+            layer.open({
+      type: 2,
+      area: ['100%', '100%'],
+      content: '/admin/forumadd?fid=0',
+      zIndex: layer.zIndex, //重点1
+      success: function(layero){
+        layer.setTop(layero); //重点2
+      },
+      cancel: function(){
+         //右上角关闭回调
+        updata();
+        //return false 开启该代码可禁止点击该按钮关闭
+        }
+    });   
+        });
+    
+ 
+    function updata(){
+        setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },500) 
+    }
+ 
+   </script>
+</body>
+</html>

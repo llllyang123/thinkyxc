@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-网站配置管理</title>
+    {include file="template/header" /}
+    
+</head>
+
+<body>
+    <div class="layui-card">
+  <!--<div class="layui-card-header">卡片面板</div>-->
+  <div class="layui-card-body">
+        <div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">网站信息</li>
+    <li>SEO设置</li>
+    <li>用户注册设置</li>
+    <!--<li>CDN设置</li>-->
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+     <!--内容一-->
+    <form class="layui-form forms" action="" lay-filter="nei1s">
+        <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>网站信息</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" name="site_name" lay-reqtext="网站信息是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input" value="{$site_info.site_name?$site_info.site_name:''}">
+    </div>
+  </div>
+        <div class="layui-form-item">
+    <label class="layui-form-label">ICP备案</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="title" name="site_icp" autocomplete="off" value="{$site_info.site_icp?$site_info.site_icp:''}" placeholder="请输入ICP备案信息" class="layui-input">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">公安备案</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="title" name="site_gov" autocomplete="off" value="{$site_info.site_gov?$site_info.site_gov:''}" placeholder="请输入公安备案信息" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">站长邮箱</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="email" name="site_admin_email" autocomplete="off" value="{$site_info.site_admin_email?$site_info.site_admin_email:''}" placeholder="请输入站长邮箱" class="layui-input">
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">后台模板</label>
+    <div class="layui-input-block">
+      <select name="templateadmin" lay-filter="templateadmin">
+          <option value="{$viewpath}"  selected >{$viewpath}</option>
+          {foreach $templateadmin as $k => $v}
+            <option value="{$v}">{$v}</option>
+          {/foreach}
+      </select>
+    </div>
+  </div>
+  
+     <div class="layui-form-item">
+    <label class="layui-form-label">网站模板</label>
+    <div class="layui-input-block">
+      <select name="template" lay-filter="template">
+          <option value="{$viewpathpc}"  selected >{$viewpathpc}</option>
+          {foreach $template as $k => $v}
+            <option value="{$v}">{$v}</option>
+          {/foreach}
+      </select>
+    </div>
+  </div>
+  
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">统计代码</label>
+    <div class="layui-input-block">
+      <textarea placeholder="请输入统计代码" name="site_stats" class="layui-textarea">{$site_info.site_stats?$site_info.site_stats:''}</textarea>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+        
+    </form>    
+        
+    </div>
+    <div class="layui-tab-item">
+        <!--内容2-->
+    <form class="layui-form forms" action="" lay-filter="nei2s">
+         <div class="layui-form-item">
+        <label class="layui-form-label">SEO标题</label>
+        <div class="layui-input-block">
+          <input type="text" lay-verify="title" name="seo_title" value="{$site_seo.seo_title?$site_seo.seo_title:''}"  autocomplete="off" placeholder="请输入SEO标题" class="layui-input">
+        </div>
+        </div>
+     <div class="layui-form-item">
+    <label class="layui-form-label">SEO关键字</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="title" name="seo_keywords" value="{$site_seo.seo_keywords?$site_seo.seo_keywords:''}"  autocomplete="off" placeholder="请输入SEO关键字" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">SEO描述</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="title" name="seo_description" value="{$site_seo.seo_description?$site_seo.seo_description:''}"  autocomplete="off" placeholder="请输入SEO描述" class="layui-input">
+    </div>
+  </div>
+     <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei2">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+     
+      </form>     
+        
+    </div>
+    
+       <!--内容3-->
+    <div class="layui-tab-item">
+        <!--内容3-->
+    <form class="layui-form forms" action="" lay-filter="nei3s" >   
+    <div class="layui-form-item">
+    <label class="layui-form-label widthauto">用户注册验证</label>
+    <div class="layui-input-block" style="margin-left:125px">
+      <select name="logon_user" lay-filter="logon_user">
+        <option value="1" {if $site_logon.logon_user == 1} selected {/if}>是</option>
+          <option value="0" {if $site_logon.logon_user == 0} selected {/if}>否</option>
+      </select>
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <div class="layui-input-block" style="margin-left:125px">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei3">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+   </form> 
+    </div>
+    
+     <!--内容4-->
+    <!--<div class="layui-tab-item">-->
+       
+    <!--<form class="layui-form forms" action="" lay-filter="nei4s" >  -->
+    <!-- <div class="layui-form-item">-->
+    <!--    <label class="layui-form-label widthauto">静态资源cdn地址</label>-->
+    <!--    <div class="layui-input-block" style="margin-left:140px">-->
+    <!--      <input type="text" lay-verify="title" autocomplete="off" name="cdn_root" value="{$site_cdn.cdn_root}" placeholder="请输入静态资源cdn地址" class="layui-input">-->
+    <!--      <div class="layui-form-mid layui-word-aux">-->
+    <!--    不能以/结尾；设置这个地址后，请将网站下的静态资源文件放在其下面；-->
+    <!--    例如未设置cdn前：jquery的访问地址是/static/js/jquery.js, -->
+    <!--    设置cdn是后它的访问地址就是：静态资源cdn地址/static/js/jquery.js-->
+    <!--    </div>-->
+    <!--    </div>-->
+        
+    <!--    </div>-->
+    <!--  <div class="layui-form-item">-->
+    <!--    <div class="layui-input-block" style="margin-left:140px">-->
+    <!--      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei4">立即提交</button>-->
+    <!--      <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    
+    <!--</form> -->
+    
+    
+    <!--</div>-->
+    <div class="layui-tab-item">内容5</div>
+    
+  </div>
+</div>
+  </div>
+</div>
+
+
+    
+
+   {include file="template/footer" /}
+   
+
+<script>
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate
+  ,$ = layui.jquery;
+    //监听提交
+      form.on('submit(nei1)', function(data){
+        var dast = form.val("nei1s");
+        console.log(dast)
+        $.ajax({
+          url:"{:url('setting/edit')}",
+          data:{'data':dast,'set_name':'site_info'},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+              layer.msg(data.msg);
+              if(data.code == 1){
+                  setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },1000)
+              }
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+  
+    form.on('submit(nei2)', function(data){
+        var dast = form.val("nei2s");
+        // console.log(dast)
+        $.ajax({
+          url:"{:url('setting/edit')}",
+          data:{'data':dast,'set_name':'site_seo'},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+              layer.msg(data.msg);
+              if(data.code == 1){
+                  setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },1000)
+              }
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+  
+  form.on('submit(nei3)', function(data){
+        var dast = form.val("nei3s");
+        // console.log(dast)
+        $.ajax({
+          url:"{:url('setting/edit')}",
+          data:{'data':dast,'set_name':'site_logon'},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+              layer.msg(data.msg);
+              if(data.code == 1){
+                  setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },1000)
+              }
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+  
+    form.on('submit(nei4)', function(data){
+        var dast = form.val("nei4s");
+        // console.log(dast)
+        $.ajax({
+          url:"{:url('setting/edit')}",
+          data:{'data':dast,'set_name':'site_cdn'},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+              layer.msg(data.msg);
+              if(data.code == 1){
+                  setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },1000)
+              }
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+   
+  </script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-后台主页</title>
+    
+    <meta name="keywords" content="{$site_seo.seo_keywords}" />
+	
+	<meta name="description" content="{$site_seo.seo_description}" />
+    
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+    <style>
+    body{
+        /*background-color: #efefef !important;*/
+    }
+        .right{
+            position: absolute;
+            right: 0;
+        }
+        .leftp{
+            /*position: absolute;*/
+            /*left: 0;*/
+            z-index: 1000;
+        }
+        .headp{
+            /*position: absolute;*/
+            /*top: 0;*/
+            z-index: 1002;
+        }
+        /*.headov{*/
+        /*    color: #000000;*/
+        /*    background-color:#ffffff;*/
+        /*    position: absolute !important;*/
+        /*   right: 0;*/
+        /*   top: 0;*/
+        /*}*/
+        /*.headov>li{*/
+           
+        /*}*/
+        /*.headov>li>a{*/
+        /*    color: #000000 !important;*/
+        /*}*/
+        /*.headov>li>a>span{*/
+        /*    border-top-color:rgba(0, 0, 0, 0.7) !important;*/
+        /*}*/
+        .zheng{
+            position: absolute;
+            /*right: 0;*/
+            /*padding-left: 203px;*/
+           z-index: 800;
+           /*margin-top: 11px;*/
+        }
+        .lit{
+            position: relative;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 7.5px;
+            box-sizing:border-box;
+            width: 24.3333333%;
+            margin: 5px;
+            margin-top:11px;
+        }
+        .lits{
+            position: relative;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 7.5px;
+            box-sizing:border-box;
+            /*width: 30%;*/
+            margin: 5px;
+            margin-top:11px;
+        }
+        .carddiv{
+            padding: 15px;
+        }
+        .cardtit{
+            font-size: 24px;
+            color: #666;
+            padding: 5px 0 10px;
+        }
+        .cardtitp{
+            color: #666;
+        }
+        .cardtitbadge{
+            position: absolute;
+            right: 15px;
+            top: 10px;
+        }
+        .cardtitspan{
+            /*position: absolute;*/
+            right: 15px;
+        }
+        iframe{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 40px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-width:inherit;
+        }
+        .tabb{
+            /*position: absolute;*/
+            z-index: 1522;
+            background-color: #efefef;
+            margin: 0;
+            top: 40px;
+        }
+        .layui-tab-title>.layui-this{
+            background-color:#fff;
+        }
+        .listdd{
+            padding-left: 20px !important;
+        }
+    </style>
+    
+    
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">CMS 后台管理系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="">控制台</a></li>
+      <li class="layui-nav-item"><a href="">商品管理</a></li>
+      <li class="layui-nav-item"><a href="javascript:openadmin('/user.html','user','本站用户');">用户</a></li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">设置直达</a>
+        <dl class="layui-nav-child">
+          <dd><a href="javascript:openadmin('/email.html','emailadmin','邮箱设置');">邮件管理</a></dd>
+        </dl>
+      </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="{$user['avatar']}" class="layui-nav-img">
+          {$user.username}
+        </a>
+        <dl class="layui-nav-child">
+          <!--<dd><a href="">基本资料</a></dd>-->
+          <!--<dd><a href="">安全设置</a></dd>-->
+          <dd><a href="/admin/quit">退出登录</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="http://www.werde.cn" target="_blank">官网</a></li>
+      <li class="layui-nav-item"><a href="/index" target="_blank">前台</a></li>
+      <li class="layui-nav-item"><a href="javascript:clear();" >清缓存</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">主页</a>
+          <dl class="layui-nav-child">
+            <dd><a href="admin">控制台</a></dd>
+            <dd><a href="javascript:openadmin('/setting.html','settingadmin','网站配置');">网站配置</a></dd>
+            <dd><a href="javascript:openadmin('/forum.html','navadmin','导航设置');">导航设置</a></dd>
+            <dd><a href="javascript:openadmin('/email.html','emailadmin','邮箱设置');">邮箱设置</a></dd>
+            <dd><a href="javascript:openadmin('/link.html','linkadmin','友情链接');">友情链接</a></dd>
+            <dd><a href="javascript:openadmin('/auth.html','authadmin','权限设置');">权限设置</a></dd>
+          </dl>
+        </li>
+         <li class="layui-nav-item">
+          <a href="javascript:;">用户管理</a>
+          <dl class="layui-nav-child">
+             <li class="layui-nav-item">
+          <a href="javascript:;"><i class="layui-icon layui-icon-right"></i> 管理组</a>
+          <dl class="layui-nav-child listdd">
+            <dd><a href="javascript:openadmin('/group.html','groupadmin','角色管理');"><i class="layui-icon layui-icon-next"></i>角色管理</a></dd>
+            <dd><a href="javascript:openadmin('/group/admin.html','groupadminadmin','管理员');"><i class="layui-icon layui-icon-next"></i>管理员</a></dd>
+          </dl>
+        </li>
+            <dd><li class="layui-nav-item">
+          <a href="javascript:;"><i class="layui-icon layui-icon-right"></i> 用户组</a>
+          <dl class="layui-nav-child listdd">
+            <dd><a href="javascript:openadmin('/user.html','user','本站用户');"><i class="layui-icon layui-icon-next"></i>本站用户</a></dd>
+            <dd><a href="javascript:openadmin('/user/useropen.html','useropen','第三方用户');"><i class="layui-icon layui-icon-next"></i>第三方用户</a></dd>
+          </dl>
+        </li></dd>
+            
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+    <a href="javascript:;">内容管理</a>
+    <dl class="layui-nav-child">
+      <dd><a href="javascript:openadmin('/cms.html','cmsadmin','文章管理');">文章管理</a></dd>
+      <dd><a href="javascript:openadmin('/addcms.html','addcmsadmin','添加文章');">添加文章</a></dd>
+      <dd><a href="javascript:openadmin('/forum.html','forumadmin','分类管理');">分类管理</a></dd>
+    </dl>
+  </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body" style="overflow:hidden;bottom:0;position:fixed;">
+      <!--正文内容-->
+      <div class="layui-tab tabb " lay-filter="demo" lay-unauto lay-allowclose="true">
+  <ul class="layui-tab-title">
+    <li lay-id="indexadmin" lay-attr="indexadmin" class="layui-this"><i class="layui-icon layui-icon-home"></i>
+    <i class="layui-icon layui-unselect layui-tab-close" style="display:none">ဆ</i>
+    </li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show"><iframe src="admin/index.html"></iframe></div>
+  </div>
+</div>
+
+
+   
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © www.aitu666.cn.com - 底部固定区域
+  </div>
+</div>
+   
+<script type="text/javascript" src="layui/layui.all.js"></script>
+
+<script>
+var $ = layui.jquery,element = layui.element,$ = layui.jquery; //Tab的切换功能，切换事件监听等，需要依赖element模块
+   
+//   openadmin('/indexs.html','indexsadmin','控制台');
+  var array = new Array();//选项卡数组
+  function openadmin(content,id,title){
+      console.log(id)
+      console.log(title)
+      
+      
+      var ins = array.indexOf(id);     // 0
+      console.log(ins)
+    //   var layid = location.hash.replace(/^#demo=/, '');
+      if(ins!='-1'){
+        //   element.tabChange('demo', id); //不推荐在if里面进行跳转选项卡
+          
+      } else{
+        //   window.location.host
+           //新增一个Tab项
+      element.tabAdd('demo', {
+        title: title
+        ,content: '<iframe src="'+"/admin"+content+'"></iframe>'
+        ,id: id
+      })
+    //   console.log(window.location.host+"/admin"+content)
+      //获取hash来切换选项卡，假设当前地址的hash为lay-id对应的值
+    // var layid = location.hash.replace(/^#demo=/, '');
+    uparr(id,1,0);
+          
+      }
+      element.tabChange('demo', id); //假设当前地址为：http://a.com#test1=222，那么选项卡会自动切换到“发送消息”这一项
+      
+  }
+  
+  //选项卡新建
+  element.on('tab(demo)', function(data){
+    //   console.log(this); //当前Tab标题所在的原始DOM元素
+    //   console.log(this.getAttribute("lay-id"));
+      console.log($(this).attr('lay-id'))
+    //   console.log(data.index); //得到当前Tab的所在下标
+    //   uparr(this.getAttribute("lay-id"),1,data.index);
+    //   console.log(data.elem); //得到当前的Tab大容器
+    // location.hash = 'demo='+ this.getAttribute('lay-id');
+  });
+    
+    //选项卡删除
+    element.on('tabDelete(demo)', function(data){
+    //   console.log(this); //当前Tab标题所在的原始DOM元素
+    //   console.log(data.index); //得到当前Tab的所在下标
+      uparr(this.getAttribute("lay-id"),2,data.index);
+      console.log(data.elem); //得到当前的Tab大容器
+    });
+      
+      
+    function uparr(data,is,index){
+        console.log(index-1)
+        // console.log(data)
+        //2=删除
+        if(is==2){
+            // console.log(is)
+            array.splice(index-1,1)
+            
+            // array.forEach(function(item, index, arr){
+            //     console.log(data)
+            //     if(item != data){
+            //         // console.log(data)
+            //         // arr.push(item)
+            //     }
+            // })
+            console.log(array)
+        }else if(is==1){
+            //1=增加
+            var ins = array.indexOf(data);     // 0
+            if(ins=='-1'){
+                 array.push(data)
+            }
+            // console.log(data)
+           
+            
+        }
+        // console.log(array)
+        
+    }
+    
+    function clear(){
+        
+         $.ajax({
+          url:"{:url('admin/index/clear')}",
+          data:{},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            // console.log(data);
+            if(data.msg){
+                layer.msg(data.msg);
+              if(data.code==1){
+                  
+              }
+            } 
+            
+            
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+        
+    }
+  
+
+  </script>
+</body>
+</html>

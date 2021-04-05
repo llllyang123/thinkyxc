@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-分类管理</title>
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <style>
+        .layui-btn+.layui-btn{
+            margin-left: 10px !important;
+        }
+        .layui-btn.layuiadmin-btn-list{
+            height: 38px;
+            padding: 0px 18px;
+            font-size: 14px;
+            line-height: 38px;
+        }
+        .tispan{
+            color: #9a9a9a;
+        }
+    </style>
+</head>
+
+<body>
+    
+       <div class="layui-card">
+  <!--<div class="layui-card-header">卡片面板</div>-->
+  <div class="layui-card-body">
+     <div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">编辑分类</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+        <!--内容1-->
+     <form class="layui-form forms" action="{:url('forumadd/edit')}" method="post"  lay-filter="nei1s" id="nei1s">
+         <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>名称</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" name="name" lay-reqtext="信息是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input" value="{$data.name}">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>图片</label>
+    <div class="layui-input-block">
+      <div class="layui-upload">
+  <button type="button" class="layui-btn" id="upimag">上传图片</button>
+  <div class="layui-upload-list">
+    <img class="layui-upload-img" id="images" src="{$data.thumbnail}">
+    <p id="demoText"></p>
+  </div>
+</div>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>简介</label>
+    <div class="layui-input-block">
+      <input type="text"  name="brief" placeholder="请输入简介" autocomplete="off" class="layui-input" value="{$data.brief}">
+    </div>
+  </div> 
+    <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>公告</label>
+    <div class="layui-input-block">
+      <input type="text"  name="announcement" placeholder="请输入要显示的公告，为空则不显示" autocomplete="off" class="layui-input" value="{$data.announcement}">
+    </div>
+  </div> 
+    <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>SEO标题</label>
+    <div class="layui-input-block">
+      <input type="text"  name="seo_title" placeholder="请输入，为空则使用网站设置的相关内容" autocomplete="off" class="layui-input" value="{$data.seo_title}">
+      <span class="tispan">最多输入67个字符</span>
+    </div>
+  </div> 
+   <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>SEO描述</label>
+    <div class="layui-input-block">
+      <input type="text"  name="seo_description" placeholder="请输入描述，为空则使用网站设置的相关内容" autocomplete="off" class="layui-input" value="{$data.seo_description}">
+      <span class="tispan">最多输入93个字符</span>
+    </div>
+  </div> 
+    <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>SEO关键词</label>
+    <div class="layui-input-block">
+      <input type="text"  name="seo_keywords" placeholder="请输入关键词，用英文逗号分隔，为空则使用网站设置的相关内容" autocomplete="off" class="layui-input" value="{$data.seo_keywords}">
+      <span class="tispan">最多输入115个字符</span>
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>权重</label>
+    <div class="layui-input-block">
+      <input type="number"  name="weight" placeholder="请输入权重，越小越在前" autocomplete="off" class="layui-input" value="{$data.weight}">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">状态</label>
+    <div class="layui-input-block">
+      <input type="checkbox" name="status" lay-skin="switch" lay-text="显示|隐藏" {if $data.status == 1} checked {/if} lay-filter="status" id="status">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+     </form>   
+        
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+    
+    
+    
+     <script type="text/javascript" src="../../layui/layui.all.js"></script>   
+     <!--<script type="text/javascript" src="../../static/js/treeTable.js"></script> -->
+     
+<script>
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,$ = layui.jquery
+  ,laydate = layui.laydate
+   ,upload = layui.upload
+   ,table = layui.table;
+  var util = layui.util;
+  
+         var image = {$thumbnail};
+         var status = {$data['status']};
+   //普通图片上传
+  var uploadInst = upload.render({
+    elem: '#upimag'
+    ,url: '{:url('addcms/image')}' //改成您自己的上传接口
+    ,before: function(obj){
+        //上传前的回调
+    //   //预读本地文件示例，不支持ie8
+    //   obj.preview(function(index, file, result){
+    //     // $('#images').attr('src', result); //图片链接（base64）
+    //     console.log(file)
+    //      console.log(index)
+    //   });
+    }
+    ,done: function(res){
+        //上传后的回调
+        console.log(res)
+        image = res.image;
+        $('#images').attr('src', res.image);
+      //如果上传失败
+      if(res.code == 0){
+        return layer.msg('上传失败');
+      }
+      //上传成功
+    }
+    ,error: function(){
+      //演示失败状态，并实现重传
+      var demoText = $('#demoText');
+      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+      demoText.find('.demo-reload').on('click', function(){
+        uploadInst.upload();
+      });
+    }
+  });
+  
+  //监听频道选择
+  form.on('select(forum)', function(data){
+//   console.log(data.elem); //得到select原始DOM对象
+  console.log(data.value); //得到被选中的值
+    tags(data.value);
+//   console.log(data.othis); //得到美化后的DOM对象
+});   
+  
+    //监听提交
+  form.on('submit(nei1)', function(data){
+
+    // console.log(JSON.stringify(data));
+    var dast = form.val("nei1s");
+    console.log(dast)
+    
+    
+    $.ajax({
+          url:"{:url('forumadd/editup')}",
+          data:{'data':dast,'image':image,'fid':{$fid},'status':status},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+              layer.msg(data.msg);
+              if(data.code == 1){
+                  setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },300) 
+              }
+             
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+ 
+ form.on('switch(status)', function(data){
+//   console.log(data.elem); //得到checkbox原始DOM对象
+//   console.log(data.elem.checked); //开关是否开启，true或者false
+  if(data.elem.checked){
+      status = 1;
+  } else{
+      status = 2;
+  }
+//   console.log(status);
+//   console.log(data.value); //开关value值，也可以通过data.elem.value得到
+//   console.log(data.othis); //得到美化后的DOM对象
+}); 
+ 
+ 
+   </script>
+</body>
+</html>

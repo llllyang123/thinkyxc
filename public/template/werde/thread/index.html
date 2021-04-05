@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$site_info.site_name}-{$forumname.name}列表页</title>
+    
+     {include file="template/meta" /}
+    
+    <style>
+        .list-body{
+            padding: 20px 0px;
+        }
+        .list-div{
+            padding: 0px 20px 10px 0px;
+        }
+        .list-div-title{
+            font-size: 24px;
+            padding: 6px;
+        }
+        .list-list{
+            border: 1px solid #DEDEDE;
+            padding: 10px;
+            margin: 10px 0px;
+        }
+        .list-img{
+            width: 27%;
+            float: left;
+            margin-right:18px;
+        }
+        .list-list-content{
+            /*height: 136px;*/
+        }
+        .list-list-content-img{
+            width: 100%;
+            height: auto;
+            max-height:155px;
+        }
+        .list-list-content-text{
+            /*padding: 0px 10px 10px 20px;*/
+            /*width: 100% !important;*/
+        }
+        .list-list-content-text-h2{
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+        }
+        .list-list-content-text-h4{
+            overflow: hidden;
+            display: -webkit-box !important;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+        .list-list-content-text-icon-div{
+            /*padding: 0px 20px 0px 0px;*/
+            /*position: absolute !important;*/
+            /*top: 106px;*/
+        }
+        .list-list-content-text-icon-div>i{
+            font-size: 16px;
+             padding: 5px 13px 0px 0px;
+             color: #616161;
+        }
+        .list-list-content-text-icon-div>i:before{
+            padding-right:5px;
+        }
+        .list-pading{
+            padding: 5px 0px;
+        }
+        .page{
+            text-align: center;
+        }
+        .right-list{
+            border: 1px solid #DEDEDE;
+            padding: 13px;
+            margin: 10px 0px;
+        }
+        .right-list-ul{
+            padding: 10px 0px;
+        }
+        .right-list-ul>li{
+            padding: 3px 0px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            font-size: 15px;
+        }
+        .right-list-h2{
+            padding: 0px 0px;
+            border-bottom: 2px solid #FF7518;
+            display: inline-block;
+            margin: 0 0 -2px 0;
+        }
+        .right-list-h2-hr{
+            margin: 0;
+        }
+        .list-right-margin{
+            margin: 5px 0px;
+        }
+        .list-time{
+            display: none;
+        }
+        .clear{
+            clear: both;
+        }
+        @media screen and (max-width: 1024px){
+            
+            
+        }
+        @media screen and (max-width: 992px){
+            .layui-col-xs0{
+                display: none !important;
+            }
+            .list-div{
+                /*padding-right: 0px;*/
+            }
+            
+        }
+        @media screen and (max-width:500px){
+            .list-list-content-text-h4,.list-icon-right{
+                display: none !important;   
+            }
+            
+            .list-list-content{
+                /*height: 61px;*/
+            }
+            
+        }
+        @media screen and (max-width:360px){
+            .list-icon-right,.list-time-long{
+                display: none !important;
+            }
+            .list-time{
+                display: block;
+            }
+            .list-list-content{
+                /*height: 49px;*/
+            }
+        }
+        @media screen and (max-width:360px){
+            .list-icon-right,.list-time-long,.list-time{
+                display: none !important;
+            }
+        }
+            
+        }
+    </style>
+    
+    </head>
+    
+<body>
+    
+    {include file="template/header" /}
+    
+    
+     <div class="layui-layout-body list-body">
+         <div class="layui-container">
+            <div class="layui-row">
+                <p class="list-div-title">{$forumname.name}</p>
+                <div class="layui-col-md9 layui-col-xs12 layui-col-sm12 list-div">
+                    
+                    {if count($list)<1 }
+                         
+                            <p class="list-div-title" style="text-align: center;padding: 20%;">暂无结果</p> 
+                                
+                        {else}
+                        
+                  {volist name='list' id='value'}
+                  
+                        <div class="list-list">
+                            <div class="list-img">  
+                                {empty name="$value.thumbnail"}
+                                   <img class="list-list-content-img" src="/static/logo.png" />
+                                {else /}
+                                    <img class="list-list-content-img" src="{$value.thumbnail}">
+                                {/empty}
+                            </div>
+                            <div class="list-list-content-text">
+                                  <h2 class="list-right-margin list-list-content-text-h2">
+                                      <a href="/post/{$value.tid}.html" target="_blank">{$value.subject}</a>
+                                  </h2>
+                                        <div class="list-list-content-text-icon-div">
+                                  <i class="layui-icon layui-icon-time list-pading list-time-long">{$value.create_date|date='Y-m-d H:i:s'}</i> 
+                                  <i class="layui-icon layui-icon-time list-pading list-time">{$value.create_date|date='m-d'}</i>
+                                  <div class="list-icon-right list-pading">
+                                      <i class="layui-icon layui-icon-chart">{$value.views|number_format}</i>   
+                                      <i class="layui-icon layui-icon-star-fill">{$value.favorites|number_format}</i> 
+                                      <i class="iconfont icon-damuzhi1">{$value.likes|number_format}</i>  
+                                  </div>
+                                   <h4 class="list-list-content-text-h4 list-right-margin">
+                                  {$value.excerpt}
+                              </h4>
+                              </div>  
+                             </div>
+                             <div class="clear"></div>
+                        </div>
+                {/volist}
+                {/if}
+                {$page|raw}
+                
+             </div>
+             
+             <div class="layui-col-md3 layui-col-xs0 layui-col-sm4">
+                 <div class="right-list">
+                     <h2 class="right-list-h2">最新文章</h2>
+                     <hr class="layui-bg-gray right-list-h2-hr">
+                      <ul class="right-list-ul">
+                          {foreach $newest as $i=>$value}
+                          <li><a href="/post/{$value.tid}.html"  target="_blank">{$value.subject}</a></li>
+                          {/foreach}
+                      </ul>
+                </div>
+                 
+                 <div class="right-list">
+                     <h2 class="right-list-h2">最热文章</h2>
+                     <hr class="layui-bg-gray right-list-h2-hr">
+                      <ul class="right-list-ul">
+                          {foreach $hot as $i=>$value}
+                          <li><a href="/post/{$value.tid}.html" target="_blank">{$value.subject}</a></li>
+                          {/foreach}
+                      </ul>
+                </div>
+                 
+             </div>
+             
+        </div>
+       </div>
+                
+      
+    </div>
+    
+    
+        {include file="template/footer"}
+    
+    <script>
+       
+        
+    </script>
+    
+    
+</body>
+</html>

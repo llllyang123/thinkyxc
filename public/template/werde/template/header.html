@@ -1,0 +1,427 @@
+
+<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->  
+<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1449720_5sky3cq0e0c.css">
+
+    <style>
+        
+        .navs{
+            background-color:#1E9FFF!important; 
+            width: 100%;
+        }
+        #navlist{
+            margin-left:auto;
+            margin-right: auto;
+            float: left;
+        }
+        #navlist>.layui-nav-item>*{
+            font-size: 18px;
+        }
+        #navlist>li>dl>dd>*{
+            font-size: 18px;
+        }
+        .nav-btn{
+            position: absolute;
+            right: 0px;
+            top: 10px;
+            background-color: #ffffff00;
+            display: none;
+        }
+        .nav-btn>i{
+            font-size:34px !important;
+        }
+        .img{
+            width: 100%;
+        }
+        .dg{
+            text-align: center;
+            font-size: 36px;
+            line-height: 150px;
+        }
+        .dgmuch{
+            text-align: center;
+            font-size: 22px;
+            line-height: 50px;
+            padding: 10px 62px;
+        }
+        .dgmuch>a{
+            font-size: 22px;
+            line-height: 24px;
+            padding: 14px 62px;
+            height: 50px;
+        }
+        .main{
+            padding: 20px 0 0px 0px;
+            /*text-align: center;*/
+        }
+        .main>div{
+            padding: 0px 0px 20px 0px;
+        }
+        .main>.layui-row>div{
+            padding: 12.5px;
+        }
+        .main>.layui-row>div>div{
+            border: 1px solid #DEDEDE;
+        }
+        .imgi{
+            transition:2s;
+            text-align:center;
+        }
+        .imgi>i{
+            font-size:64px;
+            color: #1E9FFF;
+        }
+        .imgi:hover{
+            transform: rotateY(180deg)
+        }
+        .imgs{
+            transition:0.6s;
+        }
+        .imgs>img{
+            width: 100%;
+            height: 188px;
+            
+        }
+        .main-content{
+            /*padding: 15px;*/
+        }
+        .main-content>.label{
+            text-align: center;
+        }
+        .main-content>p{
+            padding: 10px 0px 10px 0px;
+            font-size: 16px;
+            color: #393D49;
+        }
+        .main-boder{
+            transition:0.6s;
+            padding: 30px 25px;
+        }
+        .main-boder:hover{
+            transform: scale(1.05);
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        .new-boder:hover{
+            transform: scale(1.05);
+            transition:0.6s;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        .new-list .layui-col-xs12{
+            height: 320px;
+        }
+        .laber-title{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 18px !important;
+        }
+        .new-content{
+            padding: 10px;
+            color: #393D49;
+        }
+        .laber-look{
+            text-align: left;
+            padding: 3px 0px 3px 0px;
+            
+        }
+        .laber-look>a{
+            font-size: 16px;
+        }
+        .laber-look>a:hover{
+            color: #1E9FFF;
+        }
+        .links{
+            font-size: 18px;
+            /*line-height: 220px;*/
+        }
+        .linksd{
+            padding: 10px 0px;
+        }
+        .linksd>a{
+            width: auto;
+            padding: 10px 10px 10px 0px;
+            line-height: 25px;
+        }
+        .link-img{
+            width: 70px;
+            height: 24px;
+        }        
+        .put{
+            padding: 30px 0px 20px 0px;
+            text-align: center;
+        }
+        .upbtn{
+            position: fixed;
+            z-index: 9999999;
+            /*right: 25px;*/
+            /*bottom: 42px;*/
+            /*line-height:26px;*/
+            /*height: 56px;*/
+        }
+        #btnTop {
+        display: none;
+        position: fixed;
+        bottom: 90px;
+        right: 30px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        line-height:26px;
+        /*background-color: #89cff0;*/
+        /*color: white;*/
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 10px;
+        height: 56px;
+    }
+
+    #btnTop:hover {
+        background-color: #1E90FF;
+    }
+
+    #btnBottom {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        /*background-color: #89cff0;*/
+        /*color: white;*/
+        cursor: pointer;
+        padding: 15px;
+        line-height:30px;
+        border-radius: 10px;
+        height: 56px;
+    }
+
+    #btnBottom:hover {
+        background-color: #1E90FF;
+    }
+     @media screen and (max-width: 767px){
+        .imgs>img{
+                width: 100%;
+                height: 260px;
+                
+        }
+        .dg{
+            text-align: center;
+            font-size: 30px;
+            line-height: 70px;
+        }
+     }
+    @media screen and (max-width: 1210px){
+        #navlist{
+             display: none;
+             /*padding-top:63px;*/
+            width: 100%;
+        }
+        .nav-hedars{
+            width: 100%;
+        }
+        .layui-container{
+            width: 100%;
+        }
+        .navs{
+             transition:2s;
+        }
+        .layui-nav-tree{
+            width: 100%;
+        }
+        .nav-form{
+            display: none ;
+            margin-bottom: 15px;
+        }
+        .nav-form>div{
+            margin-left: 35px;
+        }
+        .nav-btn{
+            display: block ;
+        }
+        .nav-hedar{
+            padding: 0 20px;
+        }
+        .layui-nav-user-right{
+            display: none ;
+            padding-left:16px;
+        }
+        .layui-nav-user-left{
+            display: none ;
+            padding-left:16px;
+        }
+        
+        
+    }
+    /* @media screen and (max-width: 769px){*/
+    /*    .navs>ul>li{*/
+    /*        display: none;*/
+    /*    }*/
+    /*}*/
+    .navs>div{
+        z-index: 99;
+        
+    }
+    .navs>div>div>a{
+            font-size: 18px;
+        }
+    .nav-hedar{
+        line-height: 60px;
+        width: auto;
+        left: 0;
+        /*z-index: 99;*/
+        /*float: left;*/
+    }
+    .nav-hedar>a{
+        font-size: 18px;
+        color: rgba(255,255,255,.7);
+    }
+    .display{
+        display: block !important;
+    }
+    .displayno{
+        display: none !important;
+    }
+    .nav-form{
+        float: right;
+        height: 50px;
+        padding: 11px 0px 0px;
+        /*margin-left: 100px;*/
+    }
+    .nav-form-input{
+        float: left;
+        width: 50%;
+        margin-right: 13px;
+    }
+    .nav-form-button{
+    
+        
+    }
+    .layui-nav-user-right{
+        float: right;
+        /*position: absolute;*/
+        /*right: 0;*/
+        padding: 0px 20px 0px 20px;
+    }
+    .layui-nav-user-left{
+        /*float: left;*/
+        /*position: absolute;*/
+        /*right: 0;*/
+    }
+    .nav-font-size{
+        font-size: 18px;
+        
+    }
+    .layui-nav-user-right>li{
+        width: 100%;
+    }
+    .layui-nav-user-right>li>.nav-font-size{
+        padding: 0 !important;
+        overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+    }
+    </style>
+    
+    
+    <!--<div class="layui-layout-body">  -->
+    <!--导航栏-->
+    <div class="layui-row navs ">
+        <nav id="navs" class="layui-container">
+              <div class="layui-bg-blue layui-col-md1 nav-hedars">
+                  <div class="nav-hedar">
+                  <a href="/">ThinkYXC</a>
+                  </div>
+                  <button class="nav-btn layui-btn" type="button" onclick="navmake()"><i id="nav-btn-i" class="layui-icon layui-icon-more"></i>   </button>
+              </div>
+            
+            <ul class="layui-nav layui-bg-blue layui-nav-user-left layui-col-md7">
+                <li class="layui-nav-item"><a href="/" class="nav-font-size">首页</a></li>
+              
+              {volist name="forum" id="value"}
+                     <li class="layui-nav-item">
+                         {if condition="$value.threads != 0 "}
+                            <a href="/post/{$value.threads}.html" class="nav-font-size">{$value.name}</a>
+                         {else /}
+                            <a href="/thread/{$value.fid}.html" class="nav-font-size">{$value.name}</a>
+                        {/if}
+                    {if empty($value.children) }
+                        </li>
+                    {else \}
+                            <dl class="layui-nav-child">
+                            
+                                {foreach $value.children as $k=>$v}
+                                    <dd>
+                                        <a href="/thread/{$v.fid}.html" class="nav-font-size">
+                                            {$v.name}
+                                        </a>
+                                    </dd>
+                                {/foreach}
+                            
+                                </dl>
+                        </li>
+                        
+                    {/if}
+                   
+                   
+              
+              {/volist}
+              
+            </ul>
+            
+            
+            {if $site_logon.logon_user == 1}
+            <!--用户中心-->
+            <ul class="layui-nav layui-bg-blue layui-nav-user-right layui-col-xs3 layui-col-sm3 layui-col-md2">
+              <li class="layui-nav-item">
+                        {empty name="uid"}
+                <a href="javascript:;" class="nav-font-size">
+                            <img src="/static/logo.png" class="layui-nav-img" alt="{$site_info.site_name}-尚未登录的logo头像图">
+                                尚未登录
+                        {else /}
+                <a href="javascript:;" class="nav-font-size">
+                            <img src="{$avatar}" class="layui-nav-img" alt="{$site_info.site_name}-{$username}的用户头像">
+                                {$username}
+                        {/empty}
+                </a>
+                <dl class="layui-nav-child">
+                     {empty name="username"}
+                        <dd><a href="/login" class="nav-font-size">立即登录</a></dd>
+                        <dd><a href="/reg" class="nav-font-size">立即注册</a></dd>
+                     {else /}
+                        <dd><a href="/user/index" class="nav-font-size">个人中心</a></dd>
+                        <dd><a href="/user/edit" class="nav-font-size">修改信息</a></dd>
+                        <dd><a href="/index/index/clear" class="nav-font-size">退出登录</a></dd>
+                     {/empty}
+                  
+                  
+                </dl>
+              </li>
+            </ul>
+             {/if}            
+            
+            <form class="layui-form nav-form layui-col-md2" action="/serch">
+              <div class="layui-form-item">
+                <div class="">
+                  <input type="text" id="serch" name="serch" required  lay-verify="required" placeholder="搜索内容" autocomplete="off" class="layui-input nav-form-input">
+                  <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo" >搜索</button>
+                </div>
+              </div>
+            </form>
+   
+   
+             
+             
+        </nav>
+        
+    </div>
+    
+
+<!--</div>-->
+    
+    

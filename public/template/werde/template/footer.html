@@ -1,0 +1,141 @@
+
+
+    <!--底部-->
+    <div class="layui-container"> 
+      <div class="layui-row">
+        <div class="layui-col-md12">
+            <p class="links">友情链接</p>
+            <div class="linksd">
+                {foreach $friendlink as $k=>$v}
+                    
+                    {empty name="$v.thumbnail"}
+                        <a class="layui-col-xs2 layui-col-sm2 layui-col-md1" href="{$v.url}" target="{$v.target}">{$v.name}</a>
+                    {else /}
+                         <!--<a class="layui-col-xs2 layui-col-sm2 layui-col-md1" href="{$v.url}" target="{$v.target}">{$v.name}</a>-->
+                        <a class="layui-col-xs2 layui-col-sm2 layui-col-md1" href="{$v.url}" target="{$v.target}">
+                            <img class="link-img" src="{$v.thumbnail}" alt="{$v.name}"/>
+                        </a>
+                    {/empty}
+                    
+                {/foreach}
+                <!--<a class="layui-col-xs2 layui-col-sm2 layui-col-md1" href="">成都威尔德</a>-->
+            </div>
+            
+        </div>
+        
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">当前在线人数{$usernum}人&nbsp;|&nbsp;您打开该页面花了{$overtime}秒</div>
+        </div>
+        
+        <div class="layui-col-md12">
+            <div class="put">
+                <a href="https://beian.miit.gov.cn/" target="_blank">{$site_info.site_icp}</a>
+                <a target="_blank" href="https://wpa.qq.com/msgrd?v=3&amp;uin=673011635&amp;site=qq&amp;menu=yes"><img border="0" src="https://wpa.qq.com/pa?p=2:673011635:51" alt="{$site_info.site_name}-点击这里给我发消息" title="点击这里给我发消息"></a>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+    
+    <button type="button" onclick="returnTop()" id="btnTop" class="layui-btn layui-btn-primary upbtn">
+        <i class="layui-icon layui-icon-up"></i>  
+    </button>
+    <button type="button" onclick="returnBottom()" id="btnBottom" class="layui-btn layui-btn-primary upbtn">
+        <i class="layui-icon layui-icon-down"></i>  
+    </button>
+    
+    {$site_info.site_stats|raw}
+
+    <script type="text/javascript" src="../layui/layui.all.js"></script>
+
+<script>
+var $ = layui.jquery,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+var carousel = layui.carousel;
+var form = layui.form;
+var laytpl = layui.laytpl;
+
+//获取浏览器宽度
+ var W = $(window).width();
+ var H = $(window).height();
+    var b = 1920/768;//我的图片比例
+    
+  //建造实例
+  var ins = carousel.render({
+    elem: '#banner'
+    ,height:(W/b).toString()+"px"
+    ,width: W.toString()+"px" //设置容器宽度
+    ,arrow: 'always' //始终显示箭头
+    //,anim: 'updown' //切换动画方式
+  });
+ 
+    nav();
+ //判断导航样式
+ function nav(){
+     if(W.toString() < 1210-17){
+        $("#navs").addClass("layui-nav-tree");
+        $(".nav-form").addClass("layui-nav-tree");
+        $(".layui-nav-user-right").addClass("layui-nav-tree");
+        $(".layui-nav-user-left").addClass("layui-nav-tree");
+    } else if(W.toString() >= 1210-17){
+        $("#navs").removeClass("layui-nav-tree");
+        $(".nav-form").removeClass("layui-nav-tree");
+        $(".layui-nav-user-right").removeClass("layui-nav-tree");
+        $(".layui-nav-user-left").removeClass("layui-nav-tree");
+    }
+ }
+ 
+    //导航按钮
+    function navmake(){
+        $("#nav-btn-i").toggleClass("layui-icon-close");
+        $("#nav-btn-i").toggleClass("layui-icon-more");
+        $("#navlist").toggleClass("display");
+        $(".nav-form").toggleClass("display");
+        $(".layui-nav-user-right").toggleClass("display");
+        $(".layui-nav-user-left").toggleClass("display");
+    }
+
+//窗口变化是重新加载
+$(window).resize(function () {
+    W = $(window).width();
+    H = $(window).height();
+    nav();
+ //重置轮播
+    ins.reload({
+        elem: '#banner'
+        ,height:(W/b).toString()+"px"
+        ,width: W.toString()+"px" //设置容器宽度
+        ,arrow: 'always' //始终显示箭头
+        //,anim: 'updown' //切换动画方式
+      });
+//  window.location.reload()
+})
+
+// 当网页向下滑动 20px 出现"返回顶部" 按钮
+    window.onscroll = function () {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            $("#btnTop").css("display", "block");
+            $("#btnBottom").css("display", "block");
+        } else {
+            $("#btnTop").css("display", "none");
+            $("#btnBottom").css("display", "none");
+        }
+    }
+
+    // 点击按钮，返回顶部
+    function returnTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    function returnBottom() {
+        document.body.scrollTop = document.body.clientHeight;
+        document.documentElement.scrollTop = document.body.clientHeight;
+    }
+    
+
+
+</script>

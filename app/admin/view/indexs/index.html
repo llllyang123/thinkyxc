@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>app开发cms系统</title>
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <style>
+    body{
+        background-color: #efefef !important;
+    }
+        .right{
+            position: absolute;
+            right: 0;
+        }
+        .leftp{
+            /*position: absolute;*/
+            /*left: 0;*/
+            z-index: 1000;
+        }
+        .headp{
+            /*position: absolute;*/
+            /*top: 0;*/
+            z-index: 1002;
+        }
+        .headov{
+            color: #000000;
+            background-color:#ffffff;
+            position: absolute !important;
+           right: 0;
+           top: 0;
+        }
+        .headov>li{
+           
+        }
+        .headov>li>a{
+            color: #000000 !important;
+        }
+        .headov>li>a>span{
+            border-top-color:rgba(0, 0, 0, 0.7) !important;
+        }
+        .zheng{
+            position: absolute;
+            /*right: 0;*/
+            /*padding-left: 203px;*/
+           z-index: 800;
+           /*margin-top: 11px;*/
+        }
+        .lit{
+            position: relative;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 7.5px;
+            box-sizing:border-box;
+            /*width: 24.3333333%;*/
+            margin: 15px 5px;
+            margin-top:11px;
+        }
+        .lits{
+            position: relative;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 7.5px;
+            box-sizing:border-box;
+            /*width: 30%;*/
+            margin: 5px;
+            margin-top:11px;
+        }
+        .carddiv{
+            padding: 15px;
+        }
+        .cardtit{
+            font-size: 24px;
+            color: #666;
+            padding: 5px 0 10px;
+        }
+        .cardtitp{
+            color: #666;
+        }
+        .cardtitbadge{
+            position: absolute;
+            right: 15px;
+            top: 10px;
+        }
+        .cardtitspan{
+            /*position: absolute;*/
+            right: 15px;
+        }
+        .bbdy{
+             top: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
+        @media screen and (min-width: 992px){
+            .layui-col-md3{
+                width:24.3%;
+            }
+            
+        }
+    </style>
+    
+    
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout">
+  <div class="layui-body bbdy layui-row">
+      <!--正文内容-->
+   <div class="layui-col-md12 layui-col-sm12">
+       
+       <div class="layui-card lit layui-col-sm12 layui-col-md3">
+  <div class="layui-card-header">文章发布访问量
+  <span class="layui-badge layui-bg-blue cardtitbadge">今天</span>
+  </div>
+  <div class="layui-card-body carddiv">
+    <p class="cardtit">{$fangwen}</p>
+    <p class="cardtitp">总发布的访问量
+        <span class="right cardtitspan">{$fangwens}</span>
+    </p>
+  </div>
+</div>
+<div class="layui-card lit layui-col-sm12 layui-col-md3">
+  <div class="layui-card-header">用户数
+  <span class="layui-badge layui-bg-orange cardtitbadge">今天</span>
+  </div>
+  <div class="layui-card-body carddiv">
+    <p class="cardtit"><?php echo number_format($usernew) ?></p>
+    <p class="cardtitp">总用户数
+        <span class="right cardtitspan"><?php echo number_format($usersum) ?></span>
+    </p>
+  </div>
+</div>
+<div class="layui-card lit layui-col-sm12 layui-col-md3">
+  <div class="layui-card-header">已审核发布文章数
+  <span class="layui-badge layui-bg-cyan cardtitbadge">今天</span>
+  </div>
+  <div class="layui-card-body carddiv">
+    <p class="cardtit"><?php echo number_format($threadnew) ?></p>
+    <p class="cardtitp">文章已审核发布总数
+        <span class="right cardtitspan"><?php echo number_format($thread) ?></span>
+    </p>
+  </div>
+</div>
+<div class="layui-card lit layui-col-sm12 layui-col-md3">
+  <div class="layui-card-header">未审核文章数
+  <span class="layui-badge layui-bg-green cardtitbadge">今天</span>
+  </div>
+  <div class="layui-card-body carddiv">
+    <p class="cardtit"><?php echo number_format($threadnews) ?></p>
+    <p class="cardtitp">文章未审核总数
+        <span class="right cardtitspan"><?php echo number_format($threads) ?></span>
+    </p>
+  </div>
+</div>
+
+
+<table class="layui-table " style="margin:4.5px;">
+        <thead>
+        <tr>
+            <th colspan="4" scope="col">服务器当前日期【<?php echo date('Y-m-d'); ?>】</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="15%">操作系统</td>
+            <td width="30%"><?php echo PHP_OS ?></td>
+            <td width="15%">脚本解释引擎</td>
+            <td width="30%"><?php echo $_SERVER['SERVER_SOFTWARE'] ?></td>
+        </tr>
+        <tr>
+            <td>安装目录</td>
+            <td><?php echo $_SERVER['DOCUMENT_ROOT'] ?></td>
+            <td>服务器 (IP/端口) </td>
+            <td><?php echo $_SERVER['HTTP_HOST'] ?></td>
+        </tr>
+        <tr>
+            <td>PHP版本</td>
+            <td><?php echo PHP_VERSION ?></td>
+            <td>允许最大上传文件</td>
+            <td><?php echo get_cfg_var("file_uploads") ? get_cfg_var("upload_max_filesize") : $error;?></td>
+        </tr>
+        <tr>
+            <td>CURL支持</td>
+            <td><?php $curl = @curl_version();echo $curl['version'] ? $curl['version'] : $error; ?></td>
+            <td>GD图形处理扩展库版本</td>
+            <td><?php $gd = @gd_info(); echo $gd['GD Version'] ? $gd['GD Version'] : $error;?></td>
+        </tr>
+        <tr>
+            <td>ThinkPHP框架版本</td>
+            <td>{:app()->version()}</td>
+            <td>脚本超时时间</td>
+            <td><?php $t = ini_get("max_execution_time"); echo $t;?>秒</td>
+        </tr>
+         <tr>
+            <td>主要特色</td>
+            <td>零门槛 / 响应式 / 清爽 / 极简</td>
+            <td>获取渠道</td>
+            <td><div class="layui-btn-container">
+                      <a href="" target="_blank" class="layui-btn layui-btn-danger" style="margin-bottom:auto;" >获取授权</a>
+                      <a href="" target="_blank" class="layui-btn" style="margin-bottom:auto;" >立即下载</a>
+                    </div></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+   </div>
+   
+ 
+  </div>
+  
+
+</div>
+   
+<script type="text/javascript" src="../layui/layui.all.js"></script>
+
+<script>
+
+   
+   
+  </script>
+</body>
+</html>

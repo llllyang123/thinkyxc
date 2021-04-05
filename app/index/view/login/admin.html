@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-后台登录界面</title>
+    
+    <meta name="keywords" content="{$site_seo.seo_keywords}" />
+	
+	<meta name="description" content="{$site_seo.seo_description}" />
+    
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+    
+    <style>
+    body{
+        background-color: #efefef;
+    }
+        .divcontent{
+            padding: 110px 0px;
+            margin: 6% auto;
+            text-align: center;
+        }
+        .divcolor>p{
+            color: #999;
+        }
+        .forms{
+            width: 375px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .formslabel{
+            width:0px;
+            color: #d2d2d2;
+            position: absolute;
+        }
+        .formsinput{
+            width: 100%;
+           padding-left: 40px;
+        }
+        .buttons{
+            width: 100%;
+            margin: 5px 0px !important;
+            
+        }
+    </style>
+    
+    </head>
+<body class="layui-layout-body">
+    
+    <div class="divcontent">
+        <div class="divcolor">
+            <h2>ThinkYXC后台登录界面</h2>
+            <p>简洁、极速的企业级CMS管理系统</p>
+        </div>
+        <form class="layui-form forms" action="" lay-filter="nei1s" id="nei1s">
+            <div class="layui-form-item">
+                <!--<label class="layui-form-label">输入框</label>-->
+                <label class="layui-icon layui-icon-username layui-form-label formslabel" ></label>
+                <!--<div class="layui-input-block formsinput">-->
+                  <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名或邮箱或手机号" autocomplete="off" class="layui-input formsinput">
+                <!--</div>-->
+              </div>
+            <div class="layui-form-item">
+                <!--<label class="layui-form-label">输入框</label>-->
+                <label class="layui-icon layui-icon-password layui-form-label formslabel" ></label>
+                <!--<div class="layui-input-block formsinput">-->
+                  <input type="password" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input formsinput">
+                <!--</div>-->
+              </div>
+              <div class="layui-form-item">
+                <!--<label class="layui-form-label">输入框</label>-->
+                <label class="layui-icon layui-icon-vercode layui-form-label formslabel" ></label>
+                <!--<div class="layui-input-block formsinput">-->
+                  <input type="text" name="captcha" required  lay-verify="required" placeholder="图形验证码" autocomplete="off" class="layui-input formsinput " style="float: left;width: 54%;margin-right: 14px;">
+                <!--</div>-->
+                <!--<img class="layui-col-xs5" src="{:captcha_src()}" alt="captcha" />-->
+                <img id="img_cap" src="{:captcha_src()}" onclick="this.src='/captcha?id='+Math.random()" alt="图形验证码" title="点击刷新"  autocomplete="off" class="layui-col-xs5 ">
+              </div>
+        <!--      <div class="layui-form-item" style="margin-bottom: 20px;">-->
+        <!--        <a href="reg.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;color:#029789!important;margin-right:151px;">注册账号</a>-->
+        <!--  <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;color:#029789!important">忘记密码？</a>-->
+        <!--</div>-->
+        <div class="layui-form-item">
+      <button class="layui-btn buttons" lay-submit lay-filter="formDemo">立即登录</button>
+      <button type="reset" class="layui-btn layui-btn-primary buttons">重置</button>
+  </div>
+  
+  </form>
+        
+    </div>
+ 
+    
+    
+    
+    
+    <script type="text/javascript" src="../../layui/layui.all.js"></script>
+    
+    <script>
+    
+    var $ = layui.jquery,element = layui.element,$ = layui.jquery; //Tab的切换功能，切换事件监听等，需要依赖element模块
+     var form = layui.form;
+  
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+     var dast = form.val("nei1s");
+            $.ajax({
+          url:"{:url('login/adminlogin')}",
+          data:{'data':dast},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            // console.log(data);
+            if(data.msg){
+                layer.msg(data.msg);
+              if(data.code==1){
+                  setTimeout(function(){
+                      if(data.data){
+                        location.href=data.data;
+                    }
+                //   location.reload(); //删除成功后再刷新
+                },1000)
+              } else if(data.code ==0){
+                  //更新验证码
+                  document.getElementById("img_cap").click();
+              }
+              
+            } 
+            
+            
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    return false;
+  });
+    
+$(function(){
+	login.initPage();
+});
+ 
+var login = {
+	//初始化页面跳转，为了防止从iframe跳转到login页面直接在iframe中显示login页面
+	initPage : function() {
+		//alert(location.href);
+		if(window.top != window.self){
+			top.location.href = location.href;
+		}
+	},
+}
+
+
+
+  </script>
+</body>
+</html>

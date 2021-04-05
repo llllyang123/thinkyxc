@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-编辑角色</title>
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <style>
+        .layui-btn+.layui-btn{
+            margin-left: 10px !important;
+        }
+        .layui-btn.layuiadmin-btn-list{
+            height: 38px;
+            padding: 0px 18px;
+            font-size: 14px;
+            line-height: 38px;
+        }
+    </style>
+</head>
+
+<body>
+    
+       <div class="layui-card">
+  <!--<div class="layui-card-header">卡片面板</div>-->
+  <div class="layui-card-body">
+     <div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">编辑角色</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+        <!--内容1-->
+     <form class="layui-form forms" action="{:url('group/addgroup')}" method="post"  lay-filter="nei1s" id="nei1s"> 
+     <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>用户组id</label>
+    <div class="layui-input-block">
+        <input type="number" name="gid" required lay-verify="required" placeholder="请输入用户组id" autocomplete="off" class="layui-input" value="{$data.gid}">
+    </div>
+  </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>角色名称</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" name="name" lay-reqtext="信息是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input" value="{$data.name}">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>起始积分</label>
+    <div class="layui-input-block">
+        <input type="number" name="creditsfrom"  placeholder="请输入起始积分" autocomplete="off" class="layui-input" value="{$data.creditsfrom}">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>最高积分</label>
+    <div class="layui-input-block">
+        <input type="number" name="creditsto" placeholder="请输入最高积分" autocomplete="off" class="layui-input" value="{$data.creditsto}">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>角色描述</label>
+    <div class="layui-input-block">
+        <textarea name="remarks" placeholder="请输入内容" class="layui-textarea">{$data.remarks}</textarea>
+    </div>
+  </div>  
+   <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+     </form>   
+        
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+    
+    
+    
+     <script type="text/javascript" src="../../layui/layui.all.js"></script>   
+     <!--<script type="text/javascript" src="../static/js/treeTable.js"></script> -->
+     
+<script>
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,$ = layui.jquery
+  ,laydate = layui.laydate
+   ,upload = layui.upload
+   ,table = layui.table;
+  var util = layui.util;
+  
+         
+  
+    //监听提交
+  form.on('submit(nei1)', function(data){
+
+    // console.log(JSON.stringify(data));
+    var dast = form.val("nei1s");
+    console.log(dast)
+    
+    
+    $.ajax({
+          url:"{:url('group/editgroupdata')}",
+          data:{'data':dast},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+              layer.msg(data.msg);
+              if(data.code == 1){
+                  setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },300) 
+              }
+             
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+ 
+   </script>
+</body>
+</html>

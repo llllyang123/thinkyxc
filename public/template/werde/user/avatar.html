@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$site_info.site_name}-{$indexname}</title>
+    
+    {include file="template/meta" /}
+    <style>
+        .left-div{
+            margin-top: 20px !important;
+            margin-bottom: 20px !important;
+        }
+        .left-div-div{
+            padding: 0px 20px;
+        }
+        .list-group-item{
+            position:relative;
+            display:block;
+            padding:10px 15px;
+            margin-bottom:-1px;
+            background-color:#fff;
+            border:1px solid #ddd;
+        }
+        .list-group-item>i{
+            padding: 7px;
+        }
+    </style>
+    
+    </head>
+    
+<body>
+    
+    {include file="template/header" /}
+    
+    <div class="layui-layout-body list-body">
+         <div class="layui-container left-div">
+            <div class="layui-row">
+                
+                 {include file="user/index-list" }
+             
+             
+               
+               {include file="user/avatar-edit" }
+                 
+            
+             
+        </div>
+       </div>
+    </div>
+    
+    <hr class="layui-bg-gray right-list-h2-hr">
+    
+        {include file="template/footer"}
+        
+         {include file="user/avatar-footer" }
+
+</body>
+</html>

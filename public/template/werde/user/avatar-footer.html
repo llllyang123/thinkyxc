@@ -1,0 +1,128 @@
+<script>
+        var upload = layui.upload; //得到 upload 对象
+//              var image;
+//   //普通图片上传
+//   var uploadInst = upload.render({
+//     elem: '#upimag'
+//     ,url: '{:url('user/image')}' //改成您自己的上传接口
+//     ,before: function(obj){
+//         //上传前的回调
+//     //   //预读本地文件示例，不支持ie8
+//     //   obj.preview(function(index, file, result){
+//     //     // $('#images').attr('src', result); //图片链接（base64）
+//     //     console.log(file)
+//     //      console.log(index)
+//     //   });
+//     }
+//     ,done: function(res){
+//         //上传后的回调
+//         console.log(res)
+//         image = res.image;
+//         $('#images').attr('src', res.image);
+//       //如果上传失败
+//       if(res.code == 0){
+//         return layer.msg('上传失败');
+//       }
+//       //上传成功
+//     }
+//     ,error: function(){
+//       //演示失败状态，并实现重传
+//       var demoText = $('#demoText');
+//       demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+//       demoText.find('.demo-reload').on('click', function(){
+//         uploadInst.upload();
+//       });
+//     }
+//   });
+  
+  
+   //执行实例
+    var uploadInst = upload.render({
+      elem: '#test1', //绑定元素
+      url: '{:url('user/upavatar')}', //上传接口
+      accept: 'images',
+      size: 500, //限制文件大小，单位 KB
+      auto: false,
+ 
+      choose: function (obj) { //选择文件后的回调
+        var files = obj.pushFile();
+        var filesArry = [];
+        for (var key in files) { //将上传的文件转为数组形式
+          filesArry.push(files[key])
+        }
+        var index = filesArry.length - 1;
+        var file = filesArry[index]; //获取最后选择的图片,即处理多选情况
+ 
+        if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion.split(";")[1]
+            .replace(/[ ]/g, "").replace("MSIE", "")) < 9) {
+          return obj.upload(index, file)
+        }
+        canvasDataURL(file, function (blob) {
+          var aafile = new File([blob], file.name, {
+            type: file.type
+          })
+          var isLt1M;
+          if (file.size < aafile.size) {
+            isLt1M = file.size
+          } else {
+            isLt1M = aafile.size
+          }
+ 
+          if (isLt1M / 1024 / 1024 > 2) {
+            return layer.alert('上传图片过大！')
+          } else {
+            if (file.size < aafile.size) {
+              return obj.upload(index, file)
+            }
+            obj.upload(index, aafile)
+          }
+        })
+      },
+      done: function (res) {
+        //上传完毕回调
+        $('#images').attr('src', res.image);
+//       //如果上传失败
+      if(res.code == 0){
+        return layer.msg('上传失败');
+      }
+      },
+      error: function () {
+        //请求异常回调
+      }
+    });
+
+ 
+  function canvasDataURL(file, callback) { //压缩转化为base64
+    var reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = function (e) {
+      const img = new Image()
+      const quality = 0.8 // 图像质量
+      const canvas = document.createElement('canvas')
+      const drawer = canvas.getContext('2d')
+      img.src = this.result
+      img.onload = function () {
+        canvas.width = img.width
+        canvas.height = img.height
+        drawer.drawImage(img, 0, 0, canvas.width, canvas.height)
+        convertBase64UrlToBlob(canvas.toDataURL(file.type, quality), callback);
+      }
+    }
+  }
+ 
+  function convertBase64UrlToBlob(urlData, callback) { //将base64转化为文件格式
+    const arr = urlData.split(',')
+    const mime = arr[0].match(/:(.*?);/)[1]
+    const bstr = atob(arr[1])
+    let n = bstr.length
+    const u8arr = new Uint8Array(n)
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n)
+    }
+    callback(new Blob([u8arr], {
+      type: mime
+    }));
+    
+  }
+        
+    </script>

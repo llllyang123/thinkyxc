@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-分类管理</title>
+    {include file="template/header" /}
+    <style>
+        .layui-btn+.layui-btn{
+            margin-left: 10px !important;
+        }
+        .layui-btn.layuiadmin-btn-list{
+            height: 38px;
+            padding: 0px 18px;
+            font-size: 14px;
+            line-height: 38px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="layui-card">
+  <div class="layui-card-header">卡片面板</div>
+  <div class="layui-card-body">
+      <div style="padding-bottom: 10px;" class="demoTable">
+          <button class="layui-btn layuiadmin-btn-list" data-type="getCheckData" lay-event="delet" id="delet">删除分类</button>
+          <button class="layui-btn layuiadmin-btn-list" data-type="add" lay-event="add" id="add">添加分类</button>
+          <button class="layui-btn layuiadmin-btn-list" data-type="updatas" lay-event="updatas" id="updatas">刷新</button>
+        </div>
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+ 
+<script type="text/html" id="barDemos">
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="add">添加子分类</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="statusp">
+
+{{#  if(d.status == 1){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="status">显示</a>
+  {{#  } else { }}
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="status">隐藏</a>
+  {{#  } }}
+</script>
+
+<script type="text/html" id="forumlist">
+
+    {volist name="data" id="vo"}
+         <td><?php echo str_repeat("-",$vo["level"])?>{$vo['name']}</td>
+    {/volist}
+// {{#  if(d.fup ==0){ }}
+//     <div class="layui-table-cell laytable-cell-1-0-1">{{d.fid}}</div>
+//     {{#  } else { }}
+//         {{#  layui.each(d.child, function(index, item){ }}
+//             <div class="layui-table-cell laytable-cell-1-0-1" style="margin-left: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;├ {{item.fid}}</div>
+//         {{#  }); }} 
+//   {{#  } }}
+</script>
+
+  </div>
+</div>
+    
+    <table id="demoTreeTb"></table>
+    
+     
+   {include file="template/footer" /}  
+     <script type="text/javascript" src="/static/js/treeTable.js"></script> 
+<script>
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,$ = layui.jquery
+  ,laydate = layui.laydate,table = layui.table;
+  var util = layui.util,
+  active = {
+    getCheckData: function(){ //获取选中数据
+      var checkStatus = table.checkStatus('test')
+      ,data = checkStatus.data;
+      if(!data[0]){
+          layer.msg('请选中要删除的内容');
+          return
+      }
+      layer.confirm('真的删除么？', function(index){
+                //do something
+        //   layer.alert(JSON.stringify(data));
+              $.ajax({
+                  url:"{:url('forum/dellist')}",
+                  data:{'data':JSON.stringify(data)},
+                  type:"Post",
+                  dataType:"json",
+                  success:function(data){
+                    console.log(data);
+                    if(data.code == 1){
+                         updata();
+                     }
+                      layer.msg(data.msg);
+                    
+                  },
+                  error:function(data){
+                      $.messager.alert('错误',data.msg);
+                  }
+              });    
+        
+        layer.close(index);
+}); 
+      
+    }
+    ,getCheckLength: function(){ //获取选中数目
+      var checkStatus = table.checkStatus('test')
+      ,data = checkStatus.data;
+      layer.msg('选中了：'+ data.length + ' 个');
+    }
+    ,isAll: function(){ //验证是否全选
+      var checkStatus = table.checkStatus('test');
+      layer.msg(checkStatus.isAll ? '全选': '未全选')
+    }
+  };
+  
+     var treeTable = layui.treeTable;//树形数据表格
+  
+  $('.demoTable .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
+  
+   //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
+  //详见：https://www.layui.com/doc/modules/table.html#totalRow
+  table.render({
+    elem: '#test'
+    ,url:'/admin/forum/forum'
+    ,toolbar: '#toolbarDemo'
+    ,title: '文章数据'
+    ,totalRow: true
+    ,cols: [[
+      {type: 'checkbox', fixed: 'left',totalRowText: '合计',}
+      ,{field:'weight', title:'排序', sort: true, align:'center'}
+      ,{field:'fid', title:'分类ID', sort: true, totalRow: true, align:'left',toolbar: '#forumlist'}
+      ,{field:'name', title:'分类名称',  align:'center'}
+      ,{field:'brief', title:'简介描述',  align:'center'}
+      ,{field:'seo_title', title:'SEO标题',  align:'center'}
+      ,{field:'seo_keywords', title:'SEO关键词',  align:'center'}
+      ,{field:'status', title:'状态',toolbar: '#statusp', align:'center'}
+      ,{fixed: 'operate', title:'操作', toolbar: '#barDemos', align:'center',fixed: 'right' }
+    ]]
+    ,page: true
+     ,response:{
+		      statusName:'code', //规定返回的状态码字段为code
+			  statusCode:1 //规定成功的状态码味200
+    }
+    ,parseData: function(res){ //res 即为原始返回的数据
+    return {
+      "code": res.code, //解析接口状态
+      "msg": res.msg, //解析提示文本
+      "count": res.count, //解析数据长度
+      "data": res.data,  //解析数据列表
+      "tag_cate" : res.tag_cate,
+    };
+  }
+    ,done: function(res, curr, count){
+    //如果是异步请求数据方式，res即为你接口返回的信息。
+    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+    console.log(res.code);
+    
+    //得到当前页码
+    console.log(curr); 
+    
+    //得到数据总量
+    console.log(count);
+  }
+  });
+  
+  //工具栏事件
+//   table.on('toolbar(test)', function(obj){
+//     var checkStatus = table.checkStatus(obj.config.id);
+//     switch(obj.event){
+//       case 'getCheckData':
+//         var data = checkStatus.data;
+//         layer.alert(JSON.stringify(data));
+//       break;
+//       case 'getCheckLength':
+//         var data = checkStatus.data;
+//         layer.msg('选中了：'+ data.length + ' 个');
+//       break;
+//       case 'isAll':
+//         layer.msg(checkStatus.isAll ? '全选': '未全选')
+//       break;
+//       case 'delet':
+//           layer.msg('删除')
+//       break;
+//       case 'add':
+//           layer.msg('添加')
+//       break;
+//       case 'edit':
+//           layer.msg('编辑')
+//       break;
+//       case 'status':
+//           layer.msg('状态')
+//       break;
+//     };
+//   });
+  
+  //监听工具条 
+table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+  var data = obj.data; //获得当前行数据
+  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+  var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+    console.log(data)
+ 
+  if(layEvent === 'detail'){ //查看
+    //do somehing
+    
+    
+  } else if(layEvent === 'del'){ //删除
+    layer.confirm('真的删除么？', function(index){
+      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+      layer.close(index);
+      //向服务端发送删除指令
+       $.ajax({
+          url:"{:url('forum/del')}",
+          data:{'tid':data.tid},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+            if(data.code == 1){
+                //  updata();
+             }
+              layer.msg(data.msg);
+            
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+      
+    });
+  } else if(layEvent === 'edit'){ //编辑
+    //do something
+            layer.open({
+  type: 2,
+  area: ['100%', '100%'],
+  content: '/admin/edit?tid='+data.tid+'&level='+data.level,
+  zIndex: layer.zIndex, //重点1
+  success: function(layero){
+    layer.setTop(layero); //重点2
+  },
+  cancel: function(){
+     //右上角关闭回调
+    updata();
+    //return false 开启该代码可禁止点击该按钮关闭
+    }
+}); 
+    
+  } else if(layEvent === 'status'){ //编辑
+    //do something
+    
+        //未发布改为已发布
+        //已发布改为未发布
+       $.ajax({
+          url:"{:url('forum/status')}",
+          data:{'fid':data.fid,'status':data.status},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data.code);
+             if(data.code == 1){
+                 updata();
+             }
+              layer.msg(data.msg);
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+        
+
+    
+    
+  } else if(layEvent === 'add'){ //添加子分类
+    //do something
+            layer.open({
+  type: 2,
+  area: ['100%', '100%'],
+  content: '/admin/forumadd?fid='+data.fid+'&fup='+data.fup,
+  zIndex: layer.zIndex, //重点1
+  success: function(layero){
+    layer.setTop(layero); //重点2
+  },
+  cancel: function(){
+     //右上角关闭回调
+    updata();
+    //return false 开启该代码可禁止点击该按钮关闭
+    }
+}); 
+    
+  } else if(layEvent === 'LAYTABLE_TIPS'){
+      
+    layer.alert('Hi，头部工具栏扩展的右侧图标。');
+  }
+});
+
+    //重新渲染数据
+    function updata(){
+        table.reload('test', {
+                  url: '/admin/forum/forum'
+        });
+        
+    }
+    
+    //批量删除按钮事件
+    $("#delet").on('click',function(){
+        // layer.alert('dd');
+        
+        
+    });
+  
+    
+    //添加按钮事件
+    $("#add").on('click',function(){
+        // layer.alert('dds');
+        layer.open({
+  type: 2,
+  area: ['100%', '100%'],
+  content: '/admin/addforum',
+  zIndex: layer.zIndex, //重点1
+  success: function(layero){
+    layer.setTop(layero); //重点2
+  },
+  cancel: function(){
+     //右上角关闭回调
+    updata();
+    //return false 开启该代码可禁止点击该按钮关闭
+    }
+});   
+    });
+    
+    //刷新数据按钮事件
+    $("#updatas").on('click',function(){
+        updata();
+    });
+ 
+
+ 
+   </script>
+</body>
+</html>

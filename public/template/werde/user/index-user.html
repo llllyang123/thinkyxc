@@ -1,0 +1,63 @@
+<div class="layui-col-md10 left-div-div">
+    <div class="layui-col-md9 left-div-div">    
+        <div class="layui-tab">
+                  <ul class="layui-tab-title">
+                    <li class="layui-this">资料设置</li>
+                  </ul>
+                  <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        
+                        <form class="layui-form" action="" method="post" lay-filter="nei1s">
+                          <div class="layui-form-item">
+                            <label class="layui-form-label">昵称</label>
+                            <div class="layui-input-block">
+                                <div class="user-div">{$user.username}</div>
+                            </div>
+                          </div>
+                          
+                           <div class="layui-form-item">
+                                <label class="layui-form-label">性别</label>
+                                <div class="layui-input-block">
+                                    {if $user.sex==0}
+                                        <div class="user-div">保密</div>
+                                    {elseif $user.sex==1}
+                                        <div class="user-div">女</div>
+                                    {elseif $user.sex==2}
+                                        <div class="user-div">男</div>
+                                    {/if}
+                                </div>
+                           </div>
+                           
+                           <div class="layui-form-item">
+                            <label class="layui-form-label">生日</label>
+                            <div class="layui-input-block">
+                                {if $user.birthday == 0}
+                                 <div class="user-div">未设置</div>
+                                 {else}
+                                 <div class="user-div">{$user.birthday|date="Y-m-d"}</div>
+                                 {/if}
+                            </div>
+                          </div>
+                           
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">个性签名</label>
+                                <div class="layui-input-block">
+                                  <textarea name="signature" placeholder="请输入个性签名内容" class="layui-textarea" disabled>{$user.signature}</textarea>
+                                </div>
+                              </div>
+                              <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <a class="layui-btn" href="/user/edit.html">编辑资料</a>
+                                </div>
+                              </div>
+                          
+                          
+                          
+                        </form>
+                        
+                    </div>
+                  </div>
+                </div>
+         </div>       
+  </div>                
+      

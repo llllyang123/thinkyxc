@@ -1,0 +1,11 @@
+{
+    "name": "test",
+    "title": "测试插件",
+    "description": "测试插件",
+    "status": 0,
+    "author": "爱途平台",
+    "version": "1.0",
+    "demo_url": "http://www.aitu666.cn",
+    "author_url": "http://www.aitu666.cn",
+    "hasAdmin": "1"
+}

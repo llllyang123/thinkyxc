@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-管理员信息</title>
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <style>
+        .layui-btn+.layui-btn{
+            margin-left: 10px !important;
+        }
+        .layui-btn.layuiadmin-btn-list{
+            height: 38px;
+            padding: 0px 18px;
+            font-size: 14px;
+            line-height: 38px;
+        }
+        .tispan{
+            color: #9a9a9a;
+        }
+    </style>
+</head>
+
+<body>
+    
+     <div class="layui-card">
+  <!--<div class="layui-card-header">卡片面板</div>-->
+  <div class="layui-card-body">
+      <div style="padding-bottom: 10px;" class="demoTable">
+          <button class="layui-btn layuiadmin-btn-list" data-type="add" lay-event="add" id="add">添加管理员</button>
+          <button class="layui-btn layuiadmin-btn-list" data-type="updatas" lay-event="updatas" id="updatas">刷新</button>
+        </div>
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+ 
+<script type="text/html" id="barDemos">
+    {{#  if(d.gid == 1){ }}
+    <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="del">删除</a>
+  {{#  } else { }}
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  {{#  } }}
+  
+</script>
+  </div>
+</div>
+ 
+   <script type="text/javascript" src="../../layui/layui.all.js"></script>     
+   
+   
+   
+<script>
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,$ = layui.jquery
+  ,laydate = layui.laydate
+   ,upload = layui.upload
+   ,table = layui.table;
+  var util = layui.util;
+  
+     //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
+  //详见：https://www.layui.com/doc/modules/table.html#totalRow
+  table.render({
+    elem: '#test'
+    ,url:'/admin/group/adminlist'
+    ,toolbar: '#toolbarDemo'
+    ,title: '角色数据'
+    ,totalRow: true
+    ,cols: [[
+      {type: 'checkbox', fixed: 'left',}
+      ,{field:'uid', title:'用户ID', sort: true,  align:'center'}
+      ,{field:'username', title:'用户名', sort: true, align:'center'}
+      ,{field:'name', title:'管理身份', sort: true, align:'center'}
+    //   ,{field:'email', title:'分类', edit: 'text', templet: function(res){
+    //     return '<em>'+ res.email +'</em>'
+    //   }}
+      ,{field:'email', title:'邮箱', sort: true,align:'center'}
+      ,{field:'credits', title:'金币', sort: true, align:'center'}
+      ,{field:'threads', title:'发帖数', sort: true, align:'center'}
+      ,{field:'posts', title:'回帖数', sort: true, align:'center'}
+      ,{field:'login_date', title:'登录时间', sort: true, align:'center',templet: function(d){
+        return util.toDateString(d.create_dateup*1000)
+      }}
+      ,{fixed: 'operate', title:'操作', toolbar: '#barDemos', align:'center',fixed: 'right' }
+    ]]
+    // ,page: true
+     ,response:{
+		      statusName:'code', //规定返回的状态码字段为code
+			  statusCode:1 //规定成功的状态码味200
+    }
+    ,limit:10
+    ,parseData: function(res){ //res 即为原始返回的数据
+    return {
+      "code": res.code, //解析接口状态
+      "msg": res.msg, //解析提示文本
+      "count": res.count, //解析数据长度
+      "data": res.data  //解析数据列表
+    };
+  }
+    ,done: function(res, curr, count){
+    //如果是异步请求数据方式，res即为你接口返回的信息。
+    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+    console.log(res.code);
+    
+    //得到当前页码
+    console.log(curr); 
+    
+    //得到数据总量
+    console.log(count);
+  }
+  });
+  
+   //监听工具条 
+table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+  var data = obj.data; //获得当前行数据
+  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+  var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+    console.log(data)
+ 
+  if(layEvent === 'detail'){ //查看
+    //do somehing
+    
+    
+  } else if(layEvent === 'del'){ //删除
+    layer.confirm('真的删除么？', function(index){
+      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+      layer.close(index);
+      //向服务端发送删除指令
+       $.ajax({
+          url:"{:url('group/admindel')}",
+          data:{'tid':data.tid},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+            if(data.code == 1){
+                //  updata();
+             }
+              layer.msg(data.msg);
+            
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+      
+    });
+  } else if(layEvent === 'edit'){ //编辑
+    //do something
+            layer.open({
+  type: 2,
+  area: ['100%', '100%'],
+  content: '/admin/group/adminedit?uid='+data.uid,
+  zIndex: layer.zIndex, //重点1
+  success: function(layero){
+    layer.setTop(layero); //重点2
+  } ,cancel: function(){ 
+    //右上角关闭回调
+    updata();
+    //return false 开启该代码可禁止点击该按钮关闭
+  }
+}); 
+    
+  } else if(layEvent === 'LAYTABLE_TIPS'){
+      
+    layer.alert('Hi，头部工具栏扩展的右侧图标。');
+  }
+});
+  
+  //重新渲染数据
+    function updata(){
+        table.reload('test', {
+                  url: '/admin/group/adminlist'
+        });
+        
+    }
+  
+   //刷新数据按钮事件
+    $("#updatas").on('click',function(){
+        updata();
+    });
+  
+  //添加按钮事件
+    $("#add").on('click',function(){
+        // layer.alert('dds');
+        layer.open({
+  type: 2,
+  area: ['100%', '100%'],
+  content: '/admin/group/addadmin',
+  zIndex: layer.zIndex, //重点1
+  success: function(layero){
+    layer.setTop(layero); //重点2
+  },
+  cancel: function(){
+     //右上角关闭回调
+    updata();
+    //return false 开启该代码可禁止点击该按钮关闭
+    }  
+});   
+    });
+    
+  
+    </script>
+</body>
+</html>
+  

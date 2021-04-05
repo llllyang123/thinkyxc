@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$site_info.site_name}-{$data.subject}单页面</title>
+    
+    {include file="template/meta" /}
+    
+</head>
+    
+    <style>
+        .list-body{
+            padding: 20px 0px;
+        }
+        .list-div{
+            padding: 10px 10px;
+        }
+        .list-div-title{
+            font-size: 24px;
+            padding: 20px;
+        }
+        .list-content{
+            border: 1px solid #DEDEDE;
+            padding: 10px;
+            margin: 10px 0px;
+        }
+        .right-list{
+            border: 1px solid #DEDEDE;
+            padding: 13px;
+            margin: 10px 0px;
+        }
+        .right-list-ul{
+            padding: 10px 0px;
+        }
+        .right-list-ul>li{
+            padding: 3px 0px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            font-size: 15px;
+        }
+        .right-list-h2{
+            padding: 0px 0px;
+            border-bottom: 2px solid #FF7518;
+            display: inline-block;
+            margin: 0 0 -2px 0;
+        }
+        .right-list-h2-hr{
+            margin: 0;
+        }
+        @media screen and (max-width: 980px){
+            .layui-col-xs0{
+                display: none !important;
+            }
+            
+        }
+        .list-title{
+            padding: 10px;
+            /*font-size: 20px;*/
+        }
+        .list-author{
+            padding: 0px 10px 10px 10px;
+        }
+        .list-content-button-good{
+            text-align: center;
+            padding: 15px 0px;
+        }
+        .button-good{
+            height: 80px !important;
+            width: 80px;
+            line-height: 84px !important;
+        }
+        .button-good-i{
+            margin-right:0px !important;
+            font-size: 40px !important;
+        }
+        .record{
+            padding: 0px 17px;
+        }
+        .record>i{
+            padding: 0px 5px;
+        }
+        .list-content-text{
+            padding: 15px;
+        }
+        .list-content-text>ol{
+            display: block;
+            list-style-type: decimal;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+        }
+        .list-content-text>ol>li{
+            list-style:decimal;
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }
+        .list-content-text>p{
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+        }
+        .list-author-span{
+            padding-right: 10px;
+        }
+        /*.record>span{*/
+        /*    padding: 0px 15px;*/
+        /*    color: #737373;*/
+        /*}*/
+    </style>
+    
+<body>
+    
+    {include file="template/header" /}
+    
+    <div class="layui-layout-body list-body">
+         <div class="layui-container">
+            <div class="layui-row">
+                <div class="layui-col-md9 layui-col-xs12 layui-col-sm12 list-div">
+                       <!--<h1 class="list-div-title">详情</h1>-->
+                  <div class="list-content">
+                      <h1 class="list-title">{$data.subject}</h1>
+                      <a href="javascript:;"><i class="layui-icon layui-icon-chart">{$data.views|number_format}</i></a>
+                      <hr class="layui-bg-gray">
+                      <div class="list-content-text">
+                        {$content|raw}
+                      </div>
+                      <!--<hr class="layui-bg-gray">-->
+                </div>
+             </div>
+             
+             <div class="layui-col-md3 layui-col-xs0 layui-col-sm4 list-div">
+                 <div class="right-list">
+                     <h2 class="right-list-h2">最新文章</h2>
+                     <hr class="layui-bg-gray right-list-h2-hr">
+                      <ul class="right-list-ul">
+                          {foreach $newest as $i=>$value}
+                          <li><a href="/post/{$value.tid}.html"  target="_blank">{$value.subject}</a></li>
+                          {/foreach}
+                      </ul>
+                </div>
+                 
+                 <div class="right-list">
+                     <h2 class="right-list-h2">最热文章</h2>
+                     <hr class="layui-bg-gray right-list-h2-hr">
+                      <ul class="right-list-ul">
+                          {foreach $hot as $i=>$value}
+                          <li><a href="/post/{$value.tid}.html" target="_blank">{$value.subject}</a></li>
+                          {/foreach}
+                      </ul>
+                </div>
+                 
+             </div>
+             
+        </div>
+       </div>
+    </div>
+    
+    
+            {include file="template/footer"}
+    
+    <script>
+         
+        
+    </script> 
+    
+</body>
+</html>
+    
+    

@@ -1,0 +1,41 @@
+<script>
+        var laydate = layui.laydate;
+        
+          //执行一个laydate实例
+          laydate.render({
+            elem: '#test1' //指定元素
+            ,value: '{$user.birthday|date="Y-m-d"}' //参数即为：2018-08-20 20:08:08 的时间戳
+          });
+        
+          //监听提交
+          form.on('submit(formDemo)', function(data){
+            // layer.msg(JSON.stringify(data.field));
+            console.log(JSON.stringify(data.field));
+            var dast = form.val("nei1s");
+            $.ajax({
+          url:"{:url('user/upuser')}",
+          data:{'data':dast},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+              layer.msg(data.msg);
+              
+              setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },500)
+              
+          },
+          error:function(data){
+            //   $.messager.alert('错误',data.msg);
+               layer.alert(data.field.interest, {
+                  title: '错误'+data.msg
+                })
+          }
+      });
+            
+            return false;
+          });
+        
+    </script>

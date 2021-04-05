@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-修改文章</title>
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    
+</head>
+
+<body>
+    
+    <div class="layui-card">
+  <!--<div class="layui-card-header">卡片面板</div>-->
+  <div class="layui-card-body">
+     <div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">修改文章</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+        <!--内容1-->
+     <form class="layui-form forms" action="{:url('addcms/post')}" method="post"  lay-filter="nei1s" id="nei1s">
+        <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>分类</label>
+    <div class="layui-input-block">
+      <!--<input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input">-->
+      <select name="forum" lay-verify="required" lay-filter="forum">
+          <option value="{$thread.fid}">{$thread.name}</option>
+         {foreach $forum as $i=>$value}
+            <option value="{$value.fid}">{$value.name}</option>
+        {/foreach}
+      </select>
+    </div>
+  </div> 
+         <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>标题</label>
+    <div class="layui-input-block">
+      <input type="text" lay-verify="required" name="subject" lay-reqtext="信息是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input" value="{$thread.subject}">
+    </div>
+  </div> 
+  <!--<div class="layui-form-item">-->
+  <!--  <label class="layui-form-label"><span class="bitian">*</span>关键词</label>-->
+  <!--  <div class="layui-input-block">-->
+  <!--    <input type="text" name="keyword" placeholder="请输入自定义关键词，用英文逗号分隔" autocomplete="off" class="layui-input">-->
+  <!--  </div>-->
+  <!--</div> -->
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>文章来源</label>
+    <div class="layui-input-block">
+      <input type="text" name="source" placeholder="请输入文章来源" autocomplete="off" class="layui-input"  value="{$post.source}">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label">摘要</label>
+    <div class="layui-input-block">
+      <!--<input type="text" name="excerpt" autocomplete="off" class="layui-input" placeholder="请输入摘要，为空则自动获取内容"  value="{$thread.excerpt}">-->
+      <textarea  name="excerpt" placeholder="请输入摘要，为空则自动获取内容" class="layui-textarea">{$thread.excerpt}</textarea>
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>缩略图</label>
+    <div class="layui-input-block">
+      <div class="layui-upload">
+  <button type="button" class="layui-btn" id="upimag">上传图片</button>
+  <div class="layui-upload-list">
+    <img class="layui-upload-img" id="images" src="{$thread.thumbnail}">
+    <p id="demoText"></p>
+  </div>
+</div>
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">分类</label>
+    <div class="layui-input-block" id="taglists">
+      <input type="checkbox" name="" title="请选择分类" value=""> 
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>内容</label>
+    <div class="layui-input-block">
+        <!--<textarea  name="mytextarea" required lay-verify="required" placeholder="请输入" class="layui-textarea"></textarea>-->
+        <textarea id="mytextarea" name="mytextarea"  placeholder="请输入内容" class="layui-textarea">{$post.content|raw}</textarea>
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian"></span>发布时间</label>
+    <div class="layui-input-block">
+      <input type="text" class="layui-input" id="time" name="time" placeholder="yyyy-MM-dd HH:mm:ss" >
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label widthauto">选择模板</label>
+    <div class="layui-input-block">
+      <select name="muban" lay-filter="muban">
+           <option value="1" {if $thread.type == 1} selected {/if}>文章页</option>
+          <option value="2" {if $thread.type == 2} selected {/if}>单页面</option>
+        <!--<option value="1">文章页</option>-->
+        <!--<option value="0">单页面</option>-->
+      </select>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">发布状态</label>
+    <div class="layui-input-block">
+      <!--<input type="checkbox" name="status" lay-skin="switch" lay-filter="status" lay-text="已发布|未审核" checked>-->
+      <select name="status" lay-verify="required">
+          <option value="1" {if $thread.status == 1} selected {/if}>已发布</option>
+          <option value="2" {if $thread.status == 2} selected {/if}>未审核</option>
+          
+        <!--<option value="2">未审核</option>-->
+        <!--<option value="1">已发布</option>-->
+      </select>
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+     </form>   
+        
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+   
+    
+    
+<script type="text/javascript" src="../layui/layui.all.js"></script>
+<script type="text/javascript" src="../js/tinymce.min.js"></script>
+<script>
+
+
+// 编辑器
+tinymce.init({
+    selector: '#mytextarea',
+    language:'zh_CN',//注意大小写
+    plugins: ['code','emoticons','indent2em','image','link','codesample','anchor','autolink','charmap','autosave','hr','fullscreen','lists','paste','media','bdmap','print','table','wordcount'],
+    toolbar: "code | emoticons | indent2em | image | media | link | codesample | anchor | paste | restoredraft | charmap | numlist bullist | hr | bdmap | print  | wordcount |fullscreen",
+    height: 500,
+    file_picker_callback: function (callback, value, meta) {
+        //文件分类
+        var filetype='.pdf, .txt, .zip, .rar, .7z, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .mp3, .mp4';
+        //后端接收上传文件的地址
+        var upurl = '{:url('addcms/image')}';
+        //为不同插件指定文件类型及后端地址
+        switch(meta.filetype){
+            case 'image':
+                filetype='.jpg, .jpeg, .png, .gif';
+                upurl = '{:url('addcms/image')}';
+                break;
+            case 'media':
+                filetype='.mp3, .mp4';
+                upurl ='{:url('addcms/files')}';
+                break;
+            case 'file':
+                
+            default:
+        }
+        //模拟出一个input用于添加本地文件
+        // var input = document.createElement('input');
+        //     input.setAttribute('type', 'file');
+        //     input.setAttribute('accept', filetype);
+        // input.click();
+        // input.onchange = function() {
+        //     var file = this.files[0];
+
+        //     var xhr, formData;
+        //     console.log(file.name);
+        //     xhr = new XMLHttpRequest();
+        //     xhr.withCredentials = false;
+        //     xhr.open('POST', upurl);
+        //     xhr.onload = function() {
+        //         var json;
+        //         if (xhr.status != 200) {
+        //             failure('HTTP Error: ' + xhr.status);
+        //             return;
+        //         }
+        //         json = JSON.parse(xhr.responseText);
+        //         if (!json || typeof json.location != 'string') {
+        //             failure('Invalid JSON: ' + xhr.responseText);
+        //             return;
+        //         }
+        //         callback(json.location);
+        //     };
+        //     formData = new FormData();
+        //     formData.append('file', file, file.name );
+        //     xhr.send(formData);
+
+        //     //下方被注释掉的是官方的一个例子
+        //     //放到下面给大家参考
+            
+        //     /*var reader = new FileReader();
+        //     reader.onload = function () {
+        //         // Note: Now we need to register the blob in TinyMCEs image blob
+        //         // registry. In the next release this part hopefully won't be
+        //         // necessary, as we are looking to handle it internally.
+        //         var id = 'blobid' + (new Date()).getTime();
+        //         var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+        //         var base64 = reader.result.split(',')[1];
+        //         var blobInfo = blobCache.create(id, file, base64);
+        //         blobCache.add(blobInfo);
+
+        //         // call the callback and populate the Title field with the file name
+        //         callback(blobInfo.blobUri(), { title: file.name });
+        //     };
+        //     reader.readAsDataURL(file);*/
+        // };
+    },
+  });
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate,$ = layui.jquery
+  ,upload = layui.upload;
+  var laytpl = layui.laytpl;
+  
+  
+
+  //监听频道选择
+  form.on('select(forum)', function(data){
+//   console.log(data.elem); //得到select原始DOM对象
+  console.log(data.value); //得到被选中的值
+    tags(data.value);
+//   console.log(data.othis); //得到美化后的DOM对象
+});   
+  
+    //监听提交
+  form.on('submit(nei1)', function(data){
+    //     var data = form.val('example');
+    // alert(JSON.stringify(data));
+    
+    tinymce.editors["mytextarea"].save();
+    // console.log(JSON.stringify(data));
+    var dast = form.val("nei1s");
+    console.log(dast)
+    
+    var platform = '';                 //字符串形式
+    var platform_arr = new Array();    //数组形式
+    
+    var obj = $("#nei1s").find('.layui-form-checked');
+     
+    obj.each(function () {
+     	platform += $(this).prev().val() + ',';
+     	platform_arr.push($(this).prev().val());
+     });
+     console.log(platform);
+     console.log(platform_arr);	
+    
+    $.ajax({
+          url:"{:url('edit/edit')}",
+          data:{'data':dast,'tag':platform,'image':image,'tid':{$thread.tid},'pid':{$post.pid}},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+              layer.msg(data.msg);
+              
+              setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },500)
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    // layer.alert(data.field.interest, {
+    //   title: '最终的提交信息'
+    // })
+    return false;
+  });
+   
+       var image = {$thumbnail};
+   //普通图片上传
+  var uploadInst = upload.render({
+    elem: '#upimag'
+    ,url: '{:url('addcms/image')}' //改成您自己的上传接口
+    ,before: function(obj){
+        //上传前的回调
+    //   //预读本地文件示例，不支持ie8
+    //   obj.preview(function(index, file, result){
+    //     // $('#images').attr('src', result); //图片链接（base64）
+    //     console.log(file)
+    //      console.log(index)
+    //   });
+    }
+    ,done: function(res){
+        //上传后的回调
+        console.log(res)
+        image = res.image;
+        $('#images').attr('src', res.image);
+      //如果上传失败
+      if(res.code == 0){
+        return layer.msg('上传失败');
+      }
+      //上传成功
+    }
+    ,error: function(){
+      //演示失败状态，并实现重传
+      var demoText = $('#demoText');
+      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+      demoText.find('.demo-reload').on('click', function(){
+        uploadInst.upload();
+      });
+    }
+  });
+  //时间选择
+   laydate.render({
+    elem: '#time',
+    type: 'datetime'
+    ,value: new Date({$thread.create_date}*1000)
+    ,isInitValue: true
+  });
+   
+      tags({$thread.fid});
+     //标签查询
+     function tags(fid){
+         console.log(fid)
+         $.ajax({
+          url:"{:url('addcms/tags')}",
+          data:{'fid':fid},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+              var getTpl = taglist.innerHTML
+                ,view = document.getElementById('taglists');
+                laytpl(getTpl).render(data, function(html){
+                  view.innerHTML = html;
+                });
+                form.render('checkbox'); //刷新select选择框渲染
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+      
+     }
+   
+   
+  </script>
+  
+  <!--复选框渲染-->
+  <script id="taglist" type="text/html">
+    {{#  layui.each(d.tag, function(index, item){ }}
+        
+        {{#  if({$tagidsp}  == 0 ){ }}
+                <input type="checkbox"  name="tag[]" title="{{item.name}}" value="{{item.tagid}}">
+            {{#  } else { }}
+            
+                 {{#  layui.each(toString({$thread.tagids}).split(','), function(indexs, items){ }}
+                        
+                    {{#  if(items == item.tagid){ }}
+                        <input type="checkbox"   name="tag[]" title="{{item.name}}" value="{{item.tagid}}">
+                    {{#  } else { }}
+                        <input type="checkbox" checked name="tag[]" title="{{item.name}}" value="{{item.tagid}}">
+                    {{#  } }} 
+    
+                {{#  }); }}
+            
+        {{#  } }} 
+        
+    
+  {{#  }); }}
+  
+  {{#  if(d.tag.length === 0){ }}
+       <input type="checkbox" name="" title="请选择分类" value=""> 
+  {{#  } }} 
+  </ul>
+  
+</script>
+  
+</body>
+</html>

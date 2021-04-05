@@ -1,0 +1,87 @@
+{include file="template/header" /}
+
+
+ 
+ <div class="layui-card">
+  <!--<div class="layui-card-header">卡片面板</div>-->
+  <div class="layui-card-body">
+     <div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">{$pluginname}</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+        <!--内容1-->
+     <form class="layui-form forms" action="" method="post" lay-filter="nei1s" >
+         <div class="layui-form-item">
+    <label class="layui-form-label">单项填空</label>
+    <div class="layui-input-block">
+
+        <input type="text" name="title" {if !empty($config.title) } value="{$config.title}"  {/if}  placeholder="请输入需要的内容" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+  
+        <div class="layui-form-item">
+    <label class="layui-form-label"><span class="bitian">*</span>单项填空</label>
+    <div class="layui-input-block">
+
+        <input type="text" lay-verify="required" lay-reqtext="信息是必填项，岂能为空？" name="mail_from" {if !empty($config.mail_from) } value="{$config.mail_from}" {/if}  placeholder="请输入需要的内容，为必填项" autocomplete="off" class="layui-input">
+        <div class="layui-form-mid layui-word-aux">辅助文字，可以自定义内容</div>
+    </div>
+  </div> 
+     
+  <div class="layui-form-item">
+    <label class="layui-form-label">多项选择</label>
+    <div class="layui-input-block">
+      <select name="mail_secure" lay-filter="mail_secure">
+          <option value="" {if $config.mail_secure == ''} selected {/if}></option>
+        <option value="选项一" {if $config.mail_secure == '选项一'} selected {/if}>选项一</option>
+          <option value="选项二" {if $config.mail_secure == '选项二'} selected {/if}>选项二</option>
+      </select>
+    </div>
+  </div> 
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label"></span>单选框</label>
+    <div class="layui-input-block">
+      <input type="radio" name="sex" value="nan" title="男" {if $config.sex ==  "nan" } checked {/if}>
+    <input type="radio" name="sex" value="nv" title="女" {if $config.sex ==  "nv"  } checked {/if} >
+    <input type="radio" name="sex" value="" title="中性" {if $config.sex ==  ""  } checked {/if} >
+    </div>
+  </div> 
+  
+  
+
+  <div class="layui-form-item">
+    <label class="layui-form-label"></span>密码保密类</label>
+    <div class="layui-input-block">
+      <input type="password" name="mail_password" {if !empty($config.mail_password) } value="{$config.mail_password}" {/if}  placeholder="请输入账号的密码" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">文本域</label>
+    <div class="layui-input-block">
+      <textarea name="desc" placeholder="请输入内容" class="layui-textarea">{if !empty($config.desc) } {$config.desc} {/if}</textarea>
+    </div>
+  </div>
+  
+  
+  
+   <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="nei1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+  
+     </form>   
+        
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+ 
+ 
+
+{include file="template/footer" /}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-找回密码</title>
+    
+    <meta name="keywords" content="{$site_seo.seo_keywords}" />
+	
+	<meta name="description" content="{$site_seo.seo_description}" />
+    
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    
+    <style>
+    body{
+        background-color: #efefef;
+    }
+        .divcontent{
+            padding: 110px 0px;
+            margin: 6% auto;
+            text-align: center;
+        }
+        .divcolor>p{
+            color: #999;
+        }
+        .forms{
+            width: 375px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .formslabel{
+            width:0px;
+            color: #d2d2d2;
+            position: absolute;
+        }
+        .formsinput{
+            width: 100%;
+           padding-left: 40px;
+        }
+        .buttons{
+            width: 100%;
+            margin: 5px 0px !important;
+            
+        }
+    </style>
+    
+    </head>
+<body class="layui-layout-body">
+    
+    <div class="divcontent">
+        <div class="divcolor">
+            <h2>ThinkYXC找回密码界面</h2>
+            <p>简洁、极速的企业级CMS管理系统</p>
+        </div>
+        <form class="layui-form forms" action="" lay-filter="nei1s" id="nei1s">
+            <div class="layui-form-item">
+                <!--<label class="layui-form-label">输入框</label>-->
+                <label class="layui-icon layui-icon-email layui-form-label formslabel" ></label>
+                <!--<div class="layui-input-block formsinput">-->
+                  <input type="email" id="email" name="email" required  lay-verify="required" placeholder="请输入注册邮箱" autocomplete="off" class="layui-input formsinput">
+                <!--</div>-->
+              </div>
+              <div class="layui-form-item">
+                <!--<label class="layui-form-label">输入框</label>-->
+                <label class="layui-icon layui-icon-vercode layui-form-label formslabel" ></label>
+                <!--<div class="layui-input-block formsinput">-->
+                  <input type="text" name="mailcaptcha" required  lay-verify="required" placeholder="邮箱验证码" autocomplete="off" class="layui-input formsinput " style="float: left;width: 54%;margin-right: 14px;">
+                <!--</div>-->
+                <div class="layui-col-xs5"> <div style="margin-left: 10px;"> <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid" onclick="mail()" name="btnSendCode" id="btnSendCode">获取验证码</button> </div> </div>
+              </div>
+              <div class="layui-form-item">
+                <!--<label class="layui-form-label">输入框</label>-->
+                <label class="layui-icon layui-icon-password layui-form-label formslabel" ></label>
+                <!--<div class="layui-input-block formsinput">-->
+                  <input type="password" name="password" required  lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input formsinput">
+                <!--</div>-->
+              </div>
+              <div class="layui-form-item">
+                <!--<label class="layui-form-label">输入框</label>-->
+                <label class="layui-icon layui-icon-password layui-form-label formslabel" ></label>
+                <!--<div class="layui-input-block formsinput">-->
+                  <input type="password" name="passwords" required  lay-verify="required" placeholder="请输入确认新密码" autocomplete="off" class="layui-input formsinput">
+                <!--</div>-->
+              </div>
+              <div class="layui-form-item">
+                <!--<label class="layui-form-label">输入框</label>-->
+                <label class="layui-icon layui-icon-vercode layui-form-label formslabel" ></label>
+                <!--<div class="layui-input-block formsinput">-->
+                  <input type="text" name="captcha" required  lay-verify="required" placeholder="图形验证码" autocomplete="off" class="layui-input formsinput " style="float: left;width: 54%;margin-right: 14px;">
+                <!--</div>-->
+                <!--<img class="layui-col-xs5" src="{:captcha_src()}" alt="captcha" />-->
+                <img src="{:captcha_src()}" onclick="this.src='/captcha?id='+Math.random()" alt="{$site_info.site_name}-用户忘记密码的图形验证码" title="点击刷新"  autocomplete="off" class="layui-col-xs5 ">
+              </div>
+              
+              <div class="layui-form-item" style="margin-bottom: 20px;">
+                <a href="login.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;color:#029789!important;margin-right:151px;">立即登录</a>
+          <a href="reg.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;color:#029789!important">立即注册</a>
+        </div>
+        <div class="layui-form-item">
+      <button class="layui-btn buttons" lay-submit lay-filter="formDemo">找回密码</button>
+      <button type="reset" class="layui-btn layui-btn-primary buttons">重置</button>
+  </div>
+  
+  </form>
+        
+    </div>
+ 
+    
+    
+    
+    
+    <script type="text/javascript" src="../layui/layui.all.js"></script>
+    
+    <script>
+    
+    var $ = layui.jquery,element = layui.element,$ = layui.jquery; //Tab的切换功能，切换事件监听等，需要依赖element模块
+     var form = layui.form;
+  
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+     var dast = form.val("nei1s");
+            $.ajax({
+          url:"{:url('forget/forget')}",
+          data:{'data':dast},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            // console.log(data);
+            if(data.msg){
+                layer.msg(data.msg);
+              if(data.code==1){
+                  setTimeout(function(){
+                      if(data.data){
+                        location.href=data.data;
+                    }
+                //   location.reload(); //删除成功后再刷新
+                },1000)
+              }
+            } 
+            
+            
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+    return false;
+  });
+    
+ var InterValObj; //timer变量，控制时间
+	var count = 60; //间隔函数，1秒执行
+	var curCount;//当前剩余秒数
+	//发送验证码
+    function mail(){
+        curCount = count;
+        var email = $('#email').val();
+        layer.msg('请稍后');
+        document.getElementById("btnSendCode").setAttribute("disabled","true" );//设置按钮为禁用状态
+        $('#btnSendCode').addClass('layui-btn-disabled');
+        $('#btnSendCode').text(curCount + "秒后重获");
+			InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器timer处理函数，1秒执行一次
+          $.ajax({
+          url:"{:url('index/mailcode')}",
+          data:{'data':email,'event':'找回密码验证码'},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            // console.log(data)
+            if(data.msg){
+                
+              if(data.code==1){
+                  layer.msg(data.msg);
+                  setTimeout(function(){
+                     
+                //   location.reload(); //删除成功后再刷新
+                },1000)
+              }
+            } 
+            
+            
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+        
+    }
+
+        //timer处理函数
+			function SetRemainTime(){
+			    if(curCount == 0){
+			       $('#btnSendCode').removeClass('layui-btn-disabled');
+			        $('#btnSendCode').text("重获验证码");
+			        window.clearInterval(InterValObj);// 停止计时器
+			        document.getElementById("btnSendCode").removeAttribute("disabled");//移除禁用状态改为可用
+			    } else{
+			        curCount--;
+					$('#btnSendCode').text(curCount + "秒后重获");
+			    }
+			}
+
+
+  </script>
+</body>
+</html>

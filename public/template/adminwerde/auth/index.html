@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-权限设置</title>
+    {include file="template/header" /}
+    <style>
+        .layui-btn+.layui-btn{
+            margin-left: 10px !important;
+        }
+        .layui-btn.layuiadmin-btn-list{
+            height: 38px;
+            padding: 0px 18px;
+            font-size: 14px;
+            line-height: 38px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="layui-card">
+  <div class="layui-card-header">
+  
+  </div>
+  <div class="layui-card-body">
+      <div style="padding-bottom: 10px;" >
+          <!--<button class="layui-btn layuiadmin-btn-list" data-type="getCheckData" lay-event="delet" id="delet">删除分类</button>-->
+          <button class="layui-btn layuiadmin-btn-list" data-type="add" lay-event="add" id="add">添加权限</button>
+          <button class="layui-btn layuiadmin-btn-list" data-type="updatas" lay-event="updatas" id="updatas" onclick="updata()">刷新</button>
+          <!-- <button type="button" class="layui-btn layuiadmin-btn-list" lay-demo="getChecked">获取选中节点数据</button>-->
+          <!--<button type="button" class="layui-btn layuiadmin-btn-list" lay-demo="setChecked">勾选指定节点</button>-->
+          <!--<button type="button" class="layui-btn layuiadmin-btn-list" lay-demo="reload">重载实例</button>-->
+        </div>
+        <div id="test12" class="demo-tree-more"></div>
+<!--      <form class="layui-form" action="">-->
+      
+      
+
+<!--</form>-->
+  
+
+
+  </div>
+</div>
+    
+     
+   {include file="template/footer" /}   
+     <!--<script type="text/javascript" src="../static/js/treeTable.js"></script> -->
+<script>
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,$ = layui.jquery
+  ,laydate = layui.laydate
+  ,table = layui.table;
+  var util = layui.util;
+  var tree = layui.tree;
+  var treedata;
+    updata();
+
+    function updata(){
+         $.ajax({
+                  url:"{:url('auth/auth')}",
+                  data:{'data':''},
+                  type:"Post",
+                  dataType:"json",
+                  success:function(data){
+                    console.log(data);
+                    if(data){
+                        //  updata();  
+                            treedata = data;
+                          tree.reload('demoId1', {
+                              //新的参数
+                              data: treedata
+                            });
+                     }
+                    //   layer.msg(data.msg);
+                    
+                  },
+                  error:function(data){
+                      $.messager.alert('错误',data.msg);
+                  }
+              });
+        
+    }
+
+  //基本演示
+    tree.render({
+        elem: '#test12'
+        ,data: treedata
+        ,showCheckbox: true  //是否显示复选框
+        ,id: 'demoId1'
+        ,showCheckbox:true
+        ,accordion:false
+        ,isJump: true //是否允许点击节点时弹出新窗口跳转
+        ,edit: ['add', 'update', 'del']
+        ,operate: function(obj){
+            var type = obj.type; //得到操作类型：add、edit、del
+            var data = obj.data; //得到当前节点的数据
+            var elem = obj.elem; //得到当前节点元素
+            
+            //Ajax 操作
+            var id = data.id; //得到节点索引
+            if(type === 'add'){ //增加节点
+              //返回 key 值
+                layer.open({
+                  type: 2,
+                  area: ['100%', '100%'],
+                  content: '/admin/auth/authadd?id='+data.id,
+                  zIndex: layer.zIndex, //重点1
+                  success: function(layero){
+                    layer.setTop(layero); //重点2
+                  },
+                  cancel: function(){
+                     //右上角关闭回调
+                    updata();
+                    //return false 开启该代码可禁止点击该按钮关闭
+                    }
+                });
+            //   return 123;
+            } else if(type === 'update'){ //修改节点
+            //   console.log(elem.find('.layui-tree-txt').html()); //得到修改后的内容
+                layer.open({
+                  type: 2,
+                  area: ['100%', '100%'],
+                  content: '/admin/auth/authedit?id='+data.id,
+                  zIndex: layer.zIndex, //重点1
+                  success: function(layero){
+                    layer.setTop(layero); //重点2
+                  },
+                  cancel: function(){
+                     //右上角关闭回调
+                    updata();
+                    //return false 开启该代码可禁止点击该按钮关闭
+                    }
+                });
+            
+            } else if(type === 'del'){ //删除节点
+            
+                $.ajax({
+                  url:"{:url('auth/authdel')}",
+                  data:{'data':'','id':data.id},
+                  type:"Post",
+                  dataType:"json",
+                  success:function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                    if(data){
+                         setTimeout(function(){
+                              updata(); //删除成功后再刷新
+                            // layer.closeAll();
+                          },300) 
+                         
+                     }
+                      
+                    
+                  },
+                  error:function(data){
+                      $.messager.alert('错误',data.msg);
+                  }
+              });
+              
+            };
+          }
+        ,click: function(obj){
+          var data = obj.data;  //获取当前点击的节点数据
+              layer.open({
+                  type: 2,
+                  area: ['100%', '100%'],
+                  content: '/admin/auth/authedit?id='+data.id,
+                  zIndex: layer.zIndex, //重点1
+                  success: function(layero){
+                    layer.setTop(layero); //重点2
+                  },
+                  cancel: function(){
+                     //右上角关闭回调
+                    updata();
+                    //return false 开启该代码可禁止点击该按钮关闭
+                    }
+                }); 
+        //   layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(data));
+        }
+    });
+
+
+        //添加按钮事件
+    $("#add").on('click',function(){
+        // layer.alert('dds');
+            layer.open({
+      type: 2,
+      area: ['100%', '100%'],
+      content: '/admin/auth/authadd?id=0',
+      zIndex: layer.zIndex, //重点1
+      success: function(layero){
+        layer.setTop(layero); //重点2
+      },
+      cancel: function(){
+         //右上角关闭回调
+        updata();
+        //return false 开启该代码可禁止点击该按钮关闭
+        }
+    });   
+        });
+    
+ 
+    // function updata(){
+    //     setTimeout(function(){
+    //               location.reload(); //删除成功后再刷新
+    //             // layer.closeAll();
+    //           },500) 
+    // }
+ 
+   </script>
+</body>
+</html>

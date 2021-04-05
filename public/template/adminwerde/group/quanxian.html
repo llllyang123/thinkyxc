@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThinkYXC-CMS系统-权限设置</title>
+    {include file="template/header" /}
+    <style>
+        .layui-btn+.layui-btn{
+            margin-left: 10px !important;
+        }
+        .layui-btn.layuiadmin-btn-list{
+            height: 38px;
+            padding: 0px 18px;
+            font-size: 14px;
+            line-height: 38px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="layui-card">
+  <div class="layui-card-header">
+  
+  </div>
+  <div class="layui-card-body">
+      <div style="padding-bottom: 10px;" >
+          <!--<button class="layui-btn layuiadmin-btn-list" data-type="getCheckData" lay-event="delet" id="delet">删除分类</button>-->
+          <!--<button class="layui-btn layuiadmin-btn-list" data-type="add" lay-event="add" id="add">添加权限</button>-->
+          <button class="layui-btn layuiadmin-btn-list" data-type="updatas" lay-event="updatas" id="updatas" onclick="updata()">刷新</button>
+           <button type="button" class="layui-btn layuiadmin-btn-list" lay-demo="getChecked" onclick="over()">保存</button>
+          <!-- <button type="button" class="layui-btn layuiadmin-btn-list" lay-demo="getChecked">获取选中节点数据</button>-->
+          <!--<button type="button" class="layui-btn layuiadmin-btn-list" lay-demo="setChecked">勾选指定节点</button>-->
+          <!--<button type="button" class="layui-btn layuiadmin-btn-list" lay-demo="reload">重载实例</button>-->
+        </div>
+        <div id="test12" class="demo-tree-more"></div>
+<!--      <form class="layui-form" action="">-->
+      
+      
+
+<!--</form>-->
+  
+
+
+  </div>
+</div>
+    
+     
+   {include file="template/footer" /}
+    
+     <!--<script type="text/javascript" src="../static/js/treeTable.js"></script> -->
+<script>
+var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,$ = layui.jquery
+  ,laydate = layui.laydate
+  ,table = layui.table;
+  var util = layui.util;
+  var tree = layui.tree;
+  var treedata;
+
+    function updata(){
+        
+         location.reload();
+        
+    }
+    
+
+  //基本演示
+    tree.render({
+        elem: '#test12'
+        ,data: treedata
+        ,showCheckbox: true  //是否显示复选框
+        ,id: 'demoId1'
+        ,showCheckbox:true
+        ,accordion:true
+        // ,isJump: true //是否允许点击节点时弹出新窗口跳转
+        // ,edit: ['add', 'update', 'del']
+        ,operate: function(obj){
+            var type = obj.type; //得到操作类型：add、edit、del
+            var data = obj.data; //得到当前节点的数据
+            var elem = obj.elem; //得到当前节点元素
+            
+            //Ajax 操作
+            var id = data.id; //得到节点索引
+            
+          }
+    });
+    
+    $.ajax({
+                  url:"{:url('auth/auth')}",
+                  data:{'data':''},
+                  type:"Post",
+                  dataType:"json",
+                  success:function(data){
+                    console.log(data);
+                    if(data){
+                        //  updata();  
+                            treedata = data;
+                          tree.reload('demoId1', {
+                              //新的参数
+                              data: treedata
+                            });
+                            tree.setChecked('demoId1', {$data}); //批量勾选 id 为 2、3 的节点
+                     }
+                    //   layer.msg(data.msg);
+                    
+                  },
+                  error:function(data){
+                      $.messager.alert('错误',data.msg);
+                  }
+              });
+    
+    function over(){
+        var checkData = tree.getChecked('demoId1');
+        console.log(checkData);
+        if(!checkData){
+            checkData = '';
+        }
+         $.ajax({
+          url:"{:url('group/quanxiangroup')}",
+          data:{'data':checkData,'gid':{$gid}},
+          type:"Post",
+          dataType:"json",
+          success:function(data){
+            console.log(data);
+              layer.msg(data.msg);
+              if(data.code == 1){
+                  setTimeout(function(){
+                  location.reload(); //删除成功后再刷新
+                // layer.closeAll();
+              },300) 
+              }
+             
+              
+          },
+          error:function(data){
+              $.messager.alert('错误',data.msg);
+          }
+      });
+        
+    }
+    
+   </script>
+</body>
+</html>
