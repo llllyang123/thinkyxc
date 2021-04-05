@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-04-05 15:18:31
+-- 生成日期： 2021-04-05 17:59:58
 -- 服务器版本： 5.6.50-log
 -- PHP 版本： 7.2.33
 
@@ -347,7 +347,7 @@ CREATE TABLE `yxc_post` (
 --
 
 INSERT INTO `yxc_post` (`pid`, `tid`, `uid`, `content`, `content_fmt`, `source`, `files`, `images`, `delete_time`, `create_date`, `create_dateup`) VALUES
-(35, 23, 3, '&lt;p&gt;追求极致的同时为PHP正名！谁说PHP不是世界上最好的语言？！&lt;/p&gt;\n&lt;p&gt;性能远超市面同类产品，百万数据压测，借鉴xiuno系统，后期会持续升级优化，提高用户体验！支持插件机制，快速的拓展系统。&lt;/p&gt;\n&lt;p&gt;基于Thinkphp5开发的市面上不少，但是基于Thinkphp6的屈指可数，特此从心开发了一套系统。 精简的同时追求极致的性能，后期会加入更多高性能的功能和优化升级哦！&lt;/p&gt;\n&lt;p&gt;欢迎加入技术群：&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;点击链接加入群聊【ThinkYXC-CMS系统①群】：&lt;a href=&quot;https://jq.qq.com/?_wv=1027&amp;amp;k=aujuhkuJ&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://jq.qq.com/?_wv=1027&amp;amp;k=aujuhkuJ&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;或者扫码加入：&lt;/p&gt;\n&lt;p&gt;&lt;img src=&quot;../storage/topic/20210402/333bf25c7f0f306c814612be10f38aa2.png&quot; alt=&quot;&quot; width=&quot;226&quot; height=&quot;290&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;有问题可邮件：673011635@qq.com&lt;/p&gt;', '追求极致的同时为PHP正名！谁说PHP不是世界上最好的语言？！\n性能远超市面同类产品，百万数据压测，借鉴xiuno系统，后期会持续升级优化，提高用户体验！支持插件机制，快速的拓展系统。\n基于Thinkphp5开发的市面上不少，但是基于Thinkphp6的屈指可数，特此从心开发了一套系统。 精简的同时追求极致的性能，后期会加入更多高性能的功能和优化升级哦！\n欢迎加入技术群：&nbsp;\n点击链接加入群聊【ThinkYXC-CMS系统①群】：https://jq.qq.com/?_wv=1027&k=aujuhkuJ\n或者扫码加入：\n\n有问题可邮件：673011635@qq.com', '', 0, 0, 0, 1617004812, 1617355514);
+(35, 23, 3, '&lt;p&gt;追求极致的同时为PHP正名！谁说PHP不是世界上最好的语言？！&lt;/p&gt;\n&lt;p&gt;性能远超市面同类产品，百万数据压测，借鉴xiuno系统，后期会持续升级优化，提高用户体验！支持插件机制，快速的拓展系统。&lt;/p&gt;\n&lt;p&gt;基于Thinkphp5开发的市面上不少，但是基于Thinkphp6的屈指可数，特此从心开发了一套系统。 精简的同时追求极致的性能，后期会加入更多高性能的功能和优化升级哦！&lt;/p&gt;\n&lt;p&gt;很纯的基于thinkphp6，没有多余的库，极大降低耦合度的同时发掘更深层次的性能！&lt;br /&gt;市面同类型产品几乎都单独开发了一套自己的库，不仅提高的耦合度，更降低了性能，试想一下：我只要加载一个首页，但是却需要加载thinkphp的库还要加载开发者自己开发的库文件，功能多的时候还要加载其他功能的库文件，想想有多臃肿！性能怎么可能快！美其名曰是方便快速开发，实际上却是多了太多的不规范的标准，不仅要学习适应thinkphp的标准，还要学所用系统的代码标准，学习成本提高的同时也浪费了大量的精力。&lt;br /&gt;犹如手机厂商绞尽脑汁将手机做薄，而你却给他换了个一厘米多厚的壳，告诉消费者说这是你的新款产品&amp;hellip;&amp;hellip;&lt;/p&gt;\n&lt;p&gt;欢迎加入技术群：&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;点击链接加入群聊【ThinkYXC-CMS系统①群】：&lt;a href=&quot;https://jq.qq.com/?_wv=1027&amp;amp;k=aujuhkuJ&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://jq.qq.com/?_wv=1027&amp;amp;k=aujuhkuJ&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;或者扫码加入：&lt;/p&gt;\n&lt;p&gt;&lt;img src=&quot;../storage/topic/20210402/333bf25c7f0f306c814612be10f38aa2.png&quot; alt=&quot;&quot; width=&quot;226&quot; height=&quot;290&quot; /&gt;&lt;/p&gt;\n&lt;p&gt;有问题可邮件：673011635@qq.com&lt;/p&gt;', '追求极致的同时为PHP正名！谁说PHP不是世界上最好的语言？！\n性能远超市面同类产品，百万数据压测，借鉴xiuno系统，后期会持续升级优化，提高用户体验！支持插件机制，快速的拓展系统。\n基于Thinkphp5开发的市面上不少，但是基于Thinkphp6的屈指可数，特此从心开发了一套系统。 精简的同时追求极致的性能，后期会加入更多高性能的功能和优化升级哦！\n很纯的基于thinkphp6，没有多余的库，极大降低耦合度的同时发掘更深层次的性能！市面同类型产品几乎都单独开发了一套自己的库，不仅提高的耦合度，更降低了性能，试想一下：我只要加载一个首页，但是却需要加载thinkphp的库还要加载开发者自己开发的库文件，功能多的时候还要加载其他功能的库文件，想想有多臃肿！性能怎么可能快！美其名曰是方便快速开发，实际上却是多了太多的不规范的标准，不仅要学习适应thinkphp的标准，还要学所用系统的代码标准，学习成本提高的同时也浪费了大量的精力。犹如手机厂商绞尽脑汁将手机做薄，而你却给他换了个一厘米多厚的壳，告诉消费者说这是你的新款产品&hellip;&hellip;\n欢迎加入技术群：&nbsp;\n点击链接加入群聊【ThinkYXC-CMS系统①群】：https://jq.qq.com/?_wv=1027&k=aujuhkuJ\n或者扫码加入：\n\n有问题可邮件：673011635@qq.com', '', 0, 0, 0, 1617004812, 1617613409);
 
 -- --------------------------------------------------------
 
@@ -493,7 +493,7 @@ CREATE TABLE `yxc_thread` (
 --
 
 INSERT INTO `yxc_thread` (`fid`, `tid`, `uid`, `top`, `type`, `tagids`, `tagids_time`, `subject`, `excerpt`, `create_date`, `create_dateup`, `views`, `favorites`, `likes`, `thumbnail`, `images`, `files`, `delete_time`, `status`) VALUES
-(15, 23, 3, 0, 2, '', 0, '联系我们', '追求极致的同时为PHP正名！谁说PHP不是世界上最好的语言？！\n性能远超市面同类产品，百万数据压测，借鉴xiuno系统，后期会持续升级优化，提高用户体验！支持插件机制，快速的拓展系统。\n基于Thinkphp5开发的市面上不少，但是基于Thinkphp6的屈指可数，特此从心开发了一套系统。\n欢迎加入技术群：\n点击链接加入群聊【ThinkYXC-CMS系统①群】：https://jq.qq.com/?_wv=1027&k=aujuhkuJ\n或者扫码加入：\n\n有问题可邮件：673011635@qq.com', 1617004812, 1617355514, 107, 0, 0, '', 0, 0, 0, 1);
+(15, 23, 3, 0, 2, '', 0, '联系我们', '追求极致的同时为PHP正名！谁说PHP不是世界上最好的语言？！\n性能远超市面同类产品，百万数据压测，借鉴xiuno系统，后期会持续升级优化，提高用户体验！支持插件机制，快速的拓展系统。\n基于Thinkphp5开发的市面上不少，但是基于Thinkphp6的屈指可数，特此从心开发了一套系统。\n欢迎加入技术群：\n点击链接加入群聊【ThinkYXC-CMS系统①群】：https://jq.qq.com/?_wv=1027&k=aujuhkuJ\n或者扫码加入：\n\n有问题可邮件：673011635@qq.com', 1617004812, 1617613409, 110, 0, 0, '', 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -553,8 +553,8 @@ CREATE TABLE `yxc_user` (
 --
 
 INSERT INTO `yxc_user` (`uid`, `gid`, `status`, `email`, `username`, `realname`, `idnumber`, `password`, `password_sms`, `salt`, `mobile`, `qq`, `threads`, `posts`, `credits`, `golds`, `rmbs`, `create_ip`, `create_date`, `login_ip`, `login_date`, `logins`, `avatar`, `avatartime`, `notices`, `unread_notices`, `email_notice`, `favorites`, `invitenums`, `sex`, `birthday`, `signature`) VALUES
-(1, 1, 1, '673011635@qq.com', '勇闯天下', '', '', 'e785dee25d1b42280f63cc320d80d944', '', 'OTVXGHVPXKIC', '', '', 0, 0, 0, 0, 0, '0', 0, 192168, 1606221797, 0, '/storage/topic/20200802/c0f586fdbe44a99f0defb82869a840f4.png', 0, 0, 0, 1, 0, 0, 0, 0, ''),
-(3, 2, 1, '123@qq.com', '123456', '', '', '853cfb2853c3c61c9a9ea70c7744f331', '', 'IEWEWZAOBCQS', '', '', 0, 0, 0, 0, 0, '0', 0, 192168, 1617606385, 0, '/storage/topic/20200802/c0f586fdbe44a99f0defb82869a840f4.png', 0, 0, 0, 1, 0, 0, 0, 662400, '爱福 ');
+(1, 1, 1, '673011635@qq.com', 'admin', '', '', 'e785dee25d1b42280f63cc320d80d944', '', 'OTVXGHVPXKIC', '', '', 0, 0, 0, 0, 0, '0', 0, 192168, 1617616751, 0, '/storage/topic/20200802/c0f586fdbe44a99f0defb82869a840f4.png', 0, 0, 0, 1, 0, 0, 0, 0, ''),
+(3, 2, 1, '123@qq.com', '123456', '', '', '853cfb2853c3c61c9a9ea70c7744f331', '', 'IEWEWZAOBCQS', '', '', 0, 0, 0, 0, 0, '0', 0, 192168, 1617613381, 0, '/storage/topic/20200802/c0f586fdbe44a99f0defb82869a840f4.png', 0, 0, 0, 1, 0, 0, 0, 662400, '爱福 ');
 
 -- --------------------------------------------------------
 
