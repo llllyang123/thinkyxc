@@ -1,23 +1,20 @@
 {
-    "name": "topthink/think",
-    "description": "the new thinkphp framework",
+    "name": "llllyang123/ThinkYXC",
+    "description": "the new thinkphp CMS",
     "type": "project",
     "keywords": [
         "framework",
         "thinkphp",
-        "ORM"
+        "ORM",
+        "CMS"
     ],
-    "homepage": "http://thinkphp.cn/",
+    "homepage": "http://www.werde.cn/",
     "license": "Apache-2.0",
     "authors": [
         {
-            "name": "liu21st",
-            "email": "liu21st@gmail.com"
-        },
-        {
-            "name": "yunwuxin",
-            "email": "448901948@qq.com"
-        }        
+            "name": "llllyang123",
+            "email": "673011635@qq.com"
+        }      
     ],
     "require": {
         "php": ">=7.1.0",
