@@ -92,8 +92,6 @@ class Login
     }
     
     public function adminlogin(){
-        $template = Db::name('template')->where(['templatestatus' => 1, 'status' =>1])->cache('template',Config::get('cache.expire'))->find();
-        View::config(['view_path' => 'template/'.$template['template'].'/']);
         $data = input('data');
         $username = $data['username'];
         $password = $data['password'];
@@ -107,32 +105,37 @@ class Login
         }
         if (preg_match('/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/', $username)) {
                 $user = Db::name('user')->where('email', $username)->find();
+                if(empty($user)){
+                    return json(['code' => 0, 'data' => '', 'msg' => '该账户不存在']);  
+                }
                 $this->user($user);
                 
         } else if (preg_match("/^1[3456789]\d{9}$/", $username)) {
                 $user = Db::name('user')->where('mobile', $username)->find();
+                if(empty($user)){
+                    return json(['code' => 0, 'data' => '', 'msg' => '该账户不存在']);  
+                }
                 $this->user($user);
           } else{
               $user = Db::name('user')->where('username', $username)->find();
+              if(empty($user)){
+                    return json(['code' => 0, 'data' => '', 'msg' => '该账户不存在']);  
+                }
               $this->user($user);
           }  
-            
         $pass = $user['password'];
         $loginpass =  md5(md5($password).$user['salt']);
-        
         if($pass == $loginpass){
             if($user['gid']>=1&&$user['gid']<=5){
                  Session::set('admin.id', $user['uid']);
             }
-            Db::name('user')->where('email', $user['email'])->update(['login_ip' => $_SERVER["REMOTE_ADDR"], 'login_date' => time() ]);
+            Db::name('user')->where('uid', $user['uid'])->update(['login_ip' => $_SERVER["REMOTE_ADDR"], 'login_date' => time() ]);
               Session::set('userid', $user['uid']);
-            // echo("登录成功");
             $admin_id=Session::get('admin.id');
             $userid=Session::get('userid');
                 if(!$admin_id&&$userid){
                         return json(['code' => 0, 'data' => '', 'msg' => '该账户不是管理员']);  
                 }
-                // echo json_encode(['code' =>1, 'data' =>'/admin', 'msg' => '登录成功'],JSON_UNESCAPED_UNICODE);
                      Session::delete('backurl');
                 return json([ 'code' =>1, 'data' =>'/admin', 'msg' => '登录成功' ]);
                 
@@ -146,7 +149,7 @@ class Login
     }
     
     public function user($user){
-        if(!$user){
+        if(empty($user)){
                 return json([ 'code' =>0, 'data' =>'', 'msg' => '未找到相关账号' ]);
             } else{
                 if($user['status'] == 2){

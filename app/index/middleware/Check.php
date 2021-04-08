@@ -23,7 +23,7 @@ class Check
         $userid = Session::get('userid');
         if(!$userid){
             echo json_encode(['code' => 0, 'data' => '', 'msg' => '您未登录，请登录账号'],JSON_UNESCAPED_UNICODE);
-            return redirect('/index/login/index');
+            return redirect('/login/index');
             // return json(['code' => 0, 'data' => '/admin', 'msg' => '该账户不是管理员']); 
         }
 
