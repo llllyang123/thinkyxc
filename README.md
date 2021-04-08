@@ -48,5 +48,5 @@ https://gitee.com/werde/think-yxc-cms
 
 # 赞助
                   支付宝                              微信支付
-[![policy editor](https://gitee.com/werde/yxc_images/raw/master/image/zhifubao-300.jpg)]()                                             [![policy editor](https://gitee.com/werde/yxc_images/raw/master/image/weixin-300.jpg)]()                                                           
+ [![policy editor](https://gitee.com/werde/yxc_images/raw/master/image/zhifubao-300.jpg)]()                                             [![policy editor](https://gitee.com/werde/yxc_images/raw/master/image/weixin-300.jpg)]()                                                           
 
