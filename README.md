@@ -8,6 +8,12 @@
 
 基于Thinkphp5开发的市面上不少，但是基于Thinkphp6的屈指可数，特此从心开发了一套系统。 精简的同时追求极致的性能，后期会加入更多高性能的功能和优化升级哦！
 
+官网：
+[https://www.werde.cn](https://www.werde.cn)
+
+官网：
+[https://www.aitu666.cn](https://www.aitu666.cn)
+
 不要吝啬你的小星星哦！
 Github：
 https://github.com/llllyang123/thinkyxc
@@ -48,5 +54,5 @@ https://gitee.com/werde/think-yxc-cms
 
 # 赞助
                   支付宝                              微信支付
- [![policy editor](https://gitee.com/werde/yxc_images/raw/master/image/zhifubao-300.jpg)]()                                             [![policy editor](https://gitee.com/werde/yxc_images/raw/master/image/weixin-300.jpg)]()                                                           
+[![policy editor](https://gitee.com/werde/yxc_images/raw/master/image/zhifubao-300.jpg)]()                                             [![policy editor](https://gitee.com/werde/yxc_images/raw/master/image/weixin-300.jpg)]()                                                           
 
